@@ -17,4 +17,7 @@ userRouter
   .get([auth.protect, auth.restrictTo("admin")], getUser)
   .patch([auth.protect, auth.restrictTo("admin")], updateUser)
   .delete([auth.protect, auth.restrictTo("admin")], deleteUser);
+
+userRouter.route("/forgotPassword").post(auth.forgotPassword);
+userRouter.route("/resetPassword/:token").patch(auth.resetPassword);
 export { userRouter };
