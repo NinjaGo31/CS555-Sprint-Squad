@@ -5,34 +5,34 @@ const userSchema = new mongoose.Schema({
   userName: {
     type: String,
     trim: true,
-    required: [true, "A user must have a username"],
+    required: [true, "A User Must Have A Username"],
     unique: true,
   },
   email: {
     type: String,
     trim: true,
-    required: [true, "A user must have an email"],
+    required: [true, "A User Must Have An Email ID"],
     unique: true,
   },
   password: {
     type: String,
-    required: [true, "Please provide a password"],
+    required: [true, "Please Provide A Password"],
     select: false,
   },
   passwordConfirm: {
     type: String,
-    required: [true, "Please provide a password"],
+    required: [true, "Please Provide Above Password Again"],
     validate: {
       validator: function (pass) {
         return pass === this.password;
       },
-      message: "Passwords dont match",
+      message: "Above Passwords Dont Match",
     },
   },
   role: { type: String, enum: ["user", "admin"], default: "user" },
-  rewardsCollected: String,
+  rewardsCollected: Object,
   scavengerHuntsCompleted: String,
-  rewardsRedeemed: String,
+  rewardsRedeemed: Object,
   passwordChangedAt: Date,
   passwordResetToken: String,
   passwordResetTokenExpire: Date
