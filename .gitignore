@@ -1,13 +1,4 @@
 /node_modules
 # config.env
 
-CS 555/SSW 555 Agile Methods for Software Development
-Project title:- Digital Scavenger Hunt
 
-Instructions on how to install the project, including any prerequisites.
-Instructions on how to install the project, including any prerequisites:
-$ npm install
-
-Instructions on how to use the project, including any required commands or configuration.
-Instructions on how to use the project, including any required commands or configuration:
-$ npm start
