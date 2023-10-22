@@ -26,5 +26,7 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
+    - name: Clear NPM cache
+      run: npm cache clean --force
     - run: npm ci
     - run: npm test
