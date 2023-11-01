@@ -3,6 +3,9 @@ import { userRouter } from "./Routes/userRoutes.js";
 import { scavengerRouter } from "./Routes/scavengerRoutes.js";
 const app = express();
 
+app.use(cors());
+
+
 // Global middleware
 app.use(express.json());
 
