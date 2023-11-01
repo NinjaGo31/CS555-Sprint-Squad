@@ -3,8 +3,9 @@ import LoginSignupButton from "./components/LoginSignupButton";
 import LoginForm from "./LoginForm";
 import "./App.css";
 import Modal from "./components/Modal";
+import SignupForm from "./SignupForm";
 
-const LandingPage = ({ onLogin }) => {
+const LandingPage = ({ onLogin , onSignup}) => {
   const [loginformShow, setLoginFormShow] = useState(false);
   const [signUpFormShow, signUpSetFormShow] = useState(false);
   return (
@@ -25,6 +26,13 @@ const LandingPage = ({ onLogin }) => {
           <LoginForm onLogin={onLogin} />
         </Modal>
       )}
+      {
+        signUpFormShow && (
+          <Modal>
+            <SignupForm onSignup={onSignup}/>
+          </Modal>
+        )
+      }
       <img className="landingImg" src="src\assets\landingPageImage.png" />
       {/* {loginformShow && <LoginForm />} */}
       {/* {formShow && <Form />} */}

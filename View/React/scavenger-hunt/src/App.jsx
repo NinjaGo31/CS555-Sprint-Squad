@@ -3,15 +3,24 @@ import LandingPage from "./landingPage";
 import Map from "./Map";
 const App = () => {
   const [isValidLogin, setValidLogin] = useState(false);
-  console.log(isValidLogin);
+  const [isValidSignUp, setValidSignup] = useState(false);
+
+  console.log(isValidSignUp);
   function handleLogin() {
     setValidLogin(true);
   }
-  console.log(isValidLogin);
+  function handleSignup() {
+    setValidSignup(true);
+  }
   return (
     <>
-      {!isValidLogin && <LandingPage onLogin={handleLogin} />}
+
+      {(!isValidLogin ||  !isValidSignUp) && <LandingPage onLogin={handleLogin} onSignup = {handleSignup}/>}
+
       {isValidLogin && <Map />}
+      {isValidSignUp && <Map />}
+
+
     </>
   );
 };
