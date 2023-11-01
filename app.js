@@ -1,6 +1,8 @@
 import express from "express";
 import { userRouter } from "./Routes/userRoutes.js";
 import { scavengerRouter } from "./Routes/scavengerRoutes.js";
+import cors from "cors";
+
 const app = express();
 
 app.use(cors());
