@@ -1,0 +1,115 @@
+:root {
+  /* --main-bg-color: #438b8a; */
+}
+body {
+  height: 100vh;
+  margin: 0;
+  background: linear-gradient(#02111b, #438b8a);
+  position: relative;
+  padding: 0;
+}
+.title {
+  margin-top: 5rem;
+  color: #fff;
+  text-align: center;
+  text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  font-family: "Press Start 2P";
+  font-size: 2rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+.subTitle {
+  color: #fff;
+  text-align: center;
+  font-family: "Irish Grover";
+  font-size: 0.9375rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.login_signup {
+  width: auto;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 2rem;
+  margin-bottom: 5rem;
+}
+
+.modal {
+  position: absolute;
+  background: #fff;
+  border: 2px solid black;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 2rem;
+  border-radius: 1rem;
+}
+
+.landingImg {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+
+.display-map {
+  width: 100%;
+  height: 96vh;
+}
+
+.mapContainer nav {
+  height: 4vh;
+  border: 2px solid red;
+}
+
+.testing {
+  z-index: 999;
+  border: 2px solid red;
+}
+
+.login-input {
+  margin-top: 0.5rem;
+  margin-bottom: 0.7rem;
+}
+#userName {
+  font-family: "Press Start 2P";
+}
+#password {
+  font-family: "Press Start 2P";
+}
+
+/* <-- hamburger --->  */
+.hamburger-Container {
+  display: inline-block;
+  cursor: pointer;
+}
+
+.bar1,
+.bar2,
+.bar3 {
+  width: 35px;
+  height: 5px;
+  background-color: #333;
+  margin: 6px 0;
+  transition: 0.4s;
+}
+
+.change .bar1 {
+  transform: translate(0, 11px) rotate(-45deg);
+}
+
+.change .bar2 {
+  opacity: 0;
+}
+
+.change .bar3 {
+  transform: translate(0, -11px) rotate(45deg);
+}

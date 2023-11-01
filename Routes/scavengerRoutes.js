@@ -10,7 +10,8 @@ import {
 const scavengerRouter = express.Router();
 scavengerRouter
   .route("/")
-  .get([auth.protect, auth.restrictTo("user", "admin")], getAllScavenger)
+  // .get([auth.protect, auth.restrictTo("user", "admin")], getAllScavenger)
+  .get(getAllScavenger)
   .post([auth.protect, auth.restrictTo("admin")], createScavenger);
 
 scavengerRouter

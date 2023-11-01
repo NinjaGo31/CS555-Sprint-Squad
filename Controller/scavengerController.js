@@ -1,6 +1,17 @@
 import { scavengerModel } from "../Model/scavengerModel.js";
 async function getAllScavenger(req, res, next) {
-  // to do
+  try {
+    const users = await scavengerModel.find();
+    res.status(200).json({
+      status: "success",
+      results: users.length,
+      data: { users },
+    });
+  } catch (error) {
+    const err = error;
+    err.statusCode = 404;
+    next(err);
+  }
 }
 async function getScavenger(req, res, next) {
   // to do

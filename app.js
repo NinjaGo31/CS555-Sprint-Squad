@@ -9,6 +9,9 @@ app.use(express.json());
 // Parent routes
 app.use("/api/v1/users", userRouter);
 app.use("/api/v1/scavengerHunt", scavengerRouter);
+app.get("/",(req,res)=>{
+  res.send(200)
+})
 
 // unhandled routes
 app.all("*", (req, res, next) => {

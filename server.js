@@ -15,6 +15,7 @@ const port = 3000
 
 app.listen(port,()=>{
     console.log(`Server started and is lietening on port ${port}`)
+    
 })
 
 
