@@ -1,7 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
 
-const SignupForm = ({ onSignup }) => {
+const SignupForm = ({ onSignup , onLogin}) => {
   const [formData, setFormData] = useState({
     userName: "",
     email: "",
@@ -57,6 +57,7 @@ const SignupForm = ({ onSignup }) => {
         console.log(response.data);
         if (response.data.status === "success") {
           onSignup();
+          onLogin();
         }
       } catch (error) {
         console.log(error);

@@ -29,7 +29,7 @@ const LandingPage = ({ onLogin , onSignup}) => {
       {
         signUpFormShow && (
           <Modal>
-            <SignupForm onSignup={onSignup}/>
+            <SignupForm onSignup={onSignup} onLogin={onLogin}/>
           </Modal>
         )
       }
