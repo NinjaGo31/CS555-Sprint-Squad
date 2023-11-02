@@ -78,11 +78,18 @@ body {
 .login-input {
   margin-top: 0.5rem;
   margin-bottom: 0.7rem;
+  
 }
 #userName {
   font-family: "Press Start 2P";
 }
+#email {
+  font-family: "Press Start 2P";
+}
 #password {
+  font-family: "Press Start 2P";
+}
+#passwordConfirm {
   font-family: "Press Start 2P";
 }
 
@@ -113,3 +120,22 @@ body {
 .change .bar3 {
   transform: translate(0, -11px) rotate(45deg);
 }
+
+.form-group {
+  display: block;
+  margin-bottom: 10px; /* Add margin between form fields */
+  margin-top: 10px;
+}
+#userName {
+  font-family: "Press Start 2P";
+}
+#email {
+  font-family: "Press Start 2P";
+}
+#password {
+  font-family: "Press Start 2P";
+}
+#passwordConfirm {
+  font-family: "Press Start 2P";
+}
+

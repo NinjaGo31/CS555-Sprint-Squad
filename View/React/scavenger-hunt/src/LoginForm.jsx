@@ -36,31 +36,34 @@ const LoginForm = ({ onLogin }) => {
     }
   }
   return (
+    
     <form onSubmit={handleSubmit}>
-      <label id="userName">User Name</label>
-      <input
-        className="login-input"
-        type="text"
-        placeholder="userName"
-        value={formData.login}
-        name="userName"
-        onChange={(e) => {
-          changeHandler(e);
-        }}
-      />
-      <label id="password"> Password</label>
-      <input
-        type="password"
-        className="login-input"
-        placeholder="password"
-        value={formData.password}
-        name="password"
-        onChange={(e) => {
-          changeHandler(e);
-        }}
-      />
-      <button>Submit</button>
+    
+        <label id="userName">User Name</label>
+        <input
+          className="login-input"
+          type="text"
+          // id="userName"
+          // placeholder="Username"
+          value={formData.login}
+          name="userName"
+          onChange={(e) => {
+            changeHandler(e);
+          }}
+        />
+        <label id="password">Password</label>
+        <input
+          type="password"
+          className="login-input"
+          // id="password"
+          // placeholder="Password"
+          value={formData.password}
+          name="password"
+          onChange={changeHandler}
+        />
+      <button type="submit">Submit</button>
     </form>
+
   );
 };
 

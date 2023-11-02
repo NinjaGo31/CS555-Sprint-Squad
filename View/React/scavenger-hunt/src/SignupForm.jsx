@@ -67,58 +67,66 @@ const SignupForm = ({ onSignup , onLogin}) => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <div>
-        <label htmlFor="userName">User Name</label>
-        <input
-          type="text"
-          id="userName"
-          name="userName"
-          value={formData.userName}
-          onChange={changeHandler}
-        />
-        {errors.userName && <span className="error">{errors.userName}</span>}
-      </div>
-
-      <div>
-        <label htmlFor="email">Email</label>
-        <input
-          type="text"
-          id="email"
-          name="email"
-          value={formData.email}
-          onChange={changeHandler}
-        />
-        {errors.email && <span className="error">{errors.email}</span>}
-      </div>
-
-      <div>
-        <label htmlFor="password">Password</label>
-        <input
-          type="password"
-          id="password"
-          name="password"
-          value={formData.password}
-          onChange={changeHandler}
-        />
-        {errors.password && <span className="error">{errors.password}</span>}
-      </div>
-
-      <div>
-        <label htmlFor="passwordConfirm">Confirm Password</label>
-        <input
-          type="password"
-          id="passwordConfirm"
-          name="passwordConfirm"
-          value={formData.passwordConfirm}
-          onChange={changeHandler}
-        />
-        {errors.passwordConfirm && (
-          <span className="error">{errors.passwordConfirm}</span>
-        )}
-      </div>
-
-      <button>Sign Up</button>
+      <label id="userName">User Name</label>
+      <input
+        className="login-input"
+        type="text"
+        id="userName"
+        name="userName"
+        // placeholder="Username"
+        value={formData.userName}
+        onChange={(e) => {
+          changeHandler(e);
+        }}
+        // className="form-input"
+      />
+      {errors.userName && <span className="error-message">{errors.userName}</span>}
+      <label id="email">Email</label>
+      <input
+        className="login-input"
+        type="text"
+        id="email"
+        name="email"
+        // placeholder="Email"
+        value={formData.email}
+        onChange={(e) => {
+          changeHandler(e);
+        }}
+        // className="form-input"
+      />
+      {errors.email && <span className="error-message">{errors.email}</span>}
+      <label id="password">Password</label>
+      <input
+        className="login-input"
+        type="password"
+        id="password"
+        name="password"
+        // placeholder="Password"
+        value={formData.password}
+        onChange={(e) => {
+          changeHandler(e);
+        }}
+      // className="form-input"
+      />
+      {errors.password && <span className="error-message">{errors.password}</span>}
+      <label id="passwordConfirm">Confirm Password</label>
+      <input
+        type="password"
+        id="passwordConfirm"
+        name="passwordConfirm"
+        // placeholder="Confirm Password"
+        value={formData.passwordConfirm}
+        onChange={(e) => {
+          changeHandler(e);
+        }}
+        className="login-input"
+      />
+      {errors.passwordConfirm && (
+        <span className="error-message">{errors.passwordConfirm}</span>
+      )}
+      <button className="submit-button">Sign Up</button>
     </form>
+
   );
 };
 
