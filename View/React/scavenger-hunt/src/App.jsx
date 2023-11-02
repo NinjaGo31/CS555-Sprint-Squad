@@ -5,23 +5,17 @@ const App = () => {
   const [isValidLogin, setValidLogin] = useState(false);
   const [isValidSignUp, setValidSignup] = useState(false);
 
-  console.log(isValidSignUp);
   function handleLogin() {
     setValidLogin(true);
   }
   function handleSignup() {
     setValidSignup(true);
   }
+
+  if(isValidLogin || isValidSignUp){
+    return    <Map />
+  }
   return (
-    <>
-
-      {(!isValidLogin ||  !isValidSignUp) && <LandingPage onLogin={handleLogin} onSignup = {handleSignup}/>}
-
-      {isValidLogin && <Map />}
-      {isValidSignUp && <Map />}
-
-
-    </>
-  );
+<LandingPage onLogin={handleLogin} onSignup = {handleSignup}/>  );
 };
 export default App;

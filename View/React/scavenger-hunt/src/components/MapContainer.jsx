@@ -1,7 +1,13 @@
+import HamburgerMenu from "./HamburgerMenu";
+
 function MapContainer(props) {
   return (
     <div className="mapContainer">
-      <nav></nav>
+      <nav>
+        <p>User name</p>
+        <p>Current scavenger hunt name</p>
+        <HamburgerMenu/>
+      </nav>
       {props.children}
     </div>
   );

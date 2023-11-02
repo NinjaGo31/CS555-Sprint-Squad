@@ -5,11 +5,11 @@ import "./App.css";
 import Modal from "./components/Modal";
 import SignupForm from "./SignupForm";
 
-const LandingPage = ({ onLogin , onSignup}) => {
+const LandingPage = ({ onLogin , onSignup,setModalOpen}) => {
   const [loginformShow, setLoginFormShow] = useState(false);
   const [signUpFormShow, signUpSetFormShow] = useState(false);
   return (
-    <div className="container">
+    <div className={`container`}>
       <h1 className="title">Scavenger Hunt</h1>
       <h2 className="subTitle">
         Unlock the Town Mysteries Scavenge, Solve, Succeed!
@@ -22,7 +22,7 @@ const LandingPage = ({ onLogin , onSignup}) => {
         />
       </div>
       {loginformShow && (
-        <Modal>
+        <Modal >
           <LoginForm onLogin={onLogin} />
         </Modal>
       )}

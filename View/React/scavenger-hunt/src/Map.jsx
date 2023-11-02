@@ -20,7 +20,7 @@ function Map(props) {
 
 function RenderMap(props) {
   const [loc, setLoc] = useState({
-    coords: { latitude: 40.745255, longitude: -74.034775 },
+    coords: { latitude: 40.744838, longitude: -74.025683 },
   });
   const options = {
     enableHighAccuracy: true,
@@ -35,11 +35,12 @@ function RenderMap(props) {
 
   useEffect(() => {
     const successCallback = (position) => {
+      console.log(position)
       setLoc(position);
     };
 
     const errorCallback = (error) => {
-      console.log(error);
+      // console.log(error);
     };
 
     const geoWatcher = navigator.geolocation.watchPosition(
@@ -88,7 +89,7 @@ function RenderMap(props) {
           mapPaneName={OverlayView.OVERLAY_MOUSE_TARGET}
           getPixelPositionOffset={getPixelPositionOffset}
         >
-          <div className="testing">Hello</div>
+          <div className="testing"><p>User icon to be implmented</p></div>
         </OverlayView>
       </GoogleMap>
       <div
@@ -102,8 +103,8 @@ function RenderMap(props) {
         }}
       >
         <h3>Legend</h3>
-        <p>Custom legend item 1</p>
-        <p>Custom legend item 2</p>
+        <p>Custom Scavenger hunt  item 1</p>
+        <p>Custom Scavenger hunt item 2</p>
         {/* Add more legend items as needed */}
         {/* {loc.coords.latitude} */}
       </div>

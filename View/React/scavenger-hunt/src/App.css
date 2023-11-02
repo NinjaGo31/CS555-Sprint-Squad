@@ -67,12 +67,18 @@ body {
 
 .mapContainer nav {
   height: 4vh;
-  border: 2px solid red;
+  /* border: 2px solid red; */
+  background: black;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .testing {
   z-index: 999;
-  border: 2px solid red;
+  /* border: 2px solid red; */
+  width: 100px;
 }
 
 .login-input {
@@ -93,33 +99,13 @@ body {
   font-family: "Press Start 2P";
 }
 
-/* <-- hamburger --->  */
-.hamburger-Container {
-  display: inline-block;
-  cursor: pointer;
-}
-
-.bar1,
-.bar2,
-.bar3 {
+.hamburger {
   width: 35px;
-  height: 5px;
-  background-color: #333;
+  height: 3px;
+  background-color: white;
   margin: 6px 0;
-  transition: 0.4s;
 }
 
-.change .bar1 {
-  transform: translate(0, 11px) rotate(-45deg);
-}
-
-.change .bar2 {
-  opacity: 0;
-}
-
-.change .bar3 {
-  transform: translate(0, -11px) rotate(45deg);
-}
 
 .form-group {
   display: block;
@@ -139,3 +125,7 @@ body {
   font-family: "Press Start 2P";
 }
 
+/* .modalBlurBG{ */
+  /* border: 2px solid red; */
+  /* backdrop-filter: blur(20px); */
+/* } */
