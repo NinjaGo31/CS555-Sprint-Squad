@@ -161,3 +161,90 @@ describe("resetPassword function", () => {
         }
     });*/
 });
+// <------- signup testcase --------->
+// const signUp = require('./Con'); // Import the signUp function
+import { signUp } from "../Controller/authController.js";
+// const userModel = require('./path/to/userModel'); // Import the userModel
+import { User as userModel } from "../Model/userModel.js";
+const jwt = require('jsonwebtoken'); // Import the jsonwebtoken library
+
+jest.mock('../Model/userModel.js'); // Mock the userModel module
+jest.mock('jsonwebtoken'); // Mock the jsonwebtoken library
+
+describe('signUp', () => {
+  let req;
+  let res;
+  let next;
+
+  beforeEach(() => {
+    req = {
+      body: {
+        userName: 'testuser',
+        email: 'test@example.com',
+        password: 'testpassword',
+        passwordConfirm: 'testpassword',
+        role: 'user',
+      },
+    };
+    res = {
+      status: jest.fn(() => res),
+      json: jest.fn(),
+    };
+    next = jest.fn();
+  });
+
+  it('should create a new user and return a token', async () => {
+    const mockUser = {
+      _id: 'mockUserId',
+      userName: 'testuser',
+      email: 'test@example.com',
+      role: 'user',
+    };
+
+    const mockToken = 'mockToken';
+
+    userModel.create.mockResolvedValueOnce(mockUser);
+    jwt.sign.mockReturnValueOnce(mockToken);
+
+    await signUp(req, res, next);
+
+    expect(userModel.create).toHaveBeenCalledWith({
+      userName: 'testuser',
+      email: 'test@example.com',
+      password: 'testpassword',
+      passwordConfirm: 'testpassword',
+      role: 'user',
+    });
+
+    expect(jwt.sign).toHaveBeenCalledWith({ id: 'mockUserId' }, process.env.JWT_SECRET);
+
+    expect(res.status).toHaveBeenCalledWith(201);
+    expect(res.json).toHaveBeenCalledWith({
+      status: 'success',
+      token: 'mockToken',
+      data: {
+        user: mockUser,
+      },
+    });
+
+    expect(next).not.toHaveBeenCalled();
+  });
+
+  it('should handle errors and return a 400 status code', async () => {
+    const mockError = new Error('Test error');
+    userModel.create.mockRejectedValueOnce(mockError);
+
+    await signUp(req, res, next);
+
+    expect(res.status).toHaveBeenCalledWith(400);
+    expect(res.json).toHaveBeenCalledWith({
+      status: 'fail',
+      data: {
+        error: mockError,
+      },
+    });
+
+    expect(next).not.toHaveBeenCalled();
+  });
+});
+
