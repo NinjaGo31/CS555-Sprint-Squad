@@ -15,10 +15,68 @@ async function getAllScavenger(req, res, next) {
 }
 async function getScavenger(req, res, next) {
   // to do
+  try {
+    const scavengerId = req.params.id;
+    const hunt = await scavengerModel.findById(scavengerId);
+
+    if (!hunt) {
+      const err = new Error(`Scavenger hunt with ID ${scavengerId} not found`);
+      err.statusCode = 404;
+      throw err;
+    }
+
+    res.status(200).json({
+      status: "success",
+      data: {
+        hunt,
+      },
+    });
+  } catch (error) {
+    const err = error;
+    if (err.kind === "ObjectId") {
+      err.statusCode = 400;
+      err.message = `Invalid ID format: ${scavengerId}`;
+    }
+    next(err);
+  }
+  
 }
 
 async function updateScavenger(req, res, next) {
   // to do
+  try {
+    const scavengerId = req.params.id;
+    const updatedData = req.body;
+
+    const hunt = await scavengerModel.findByIdAndUpdate(
+      scavengerId,
+      updatedData,
+      {
+        new: true, // Return the modified document rather than the original
+        runValidators: true, // Run model validators on update
+      }
+    );
+
+    if (!hunt) {
+      const err = new Error(`Scavenger hunt with ID ${scavengerId} not found`);
+      err.statusCode = 404;
+      throw err;
+    }
+
+    res.status(200).json({
+      status: "success",
+      data: {
+        hunt,
+      },
+    });
+  } catch (error) {
+    const err = error;
+    if (err.kind === "ObjectId") {
+      err.statusCode = 400;
+      err.message = `Invalid ID format: ${scavengerId}`;
+    }
+    next(err);
+  }
 }
 async function createScavenger(req, res, next) {
   try {
@@ -37,6 +95,7 @@ async function createScavenger(req, res, next) {
       },
     });
   } catch (error) {
+    console.log(error)
     const err = error;
     err.statusCode = 404;
     next(err);
@@ -44,6 +103,28 @@ async function createScavenger(req, res, next) {
 }
 async function deleteScavenger(req, res, next) {
   // to do
+  try {
+    const scavengerId = req.params.id;
+    const hunt = await scavengerModel.findByIdAndDelete(scavengerId);
+
+    if (!hunt) {
+      const err = new Error(`Scavenger hunt with ID ${scavengerId} not found`);
+      err.statusCode = 404;
+      throw err;
+    }
+
+    res.status(200).json({
+      status: "success",
+      data: null,
+    });
+  } catch (error) {
+    const err = error;
+    if (err.kind === "ObjectId") {
+      err.statusCode = 400;
+      err.message = `Invalid ID format: ${scavengerId}`;
+    }
+    next(err);
+  }
 }
 export {
   getAllScavenger,

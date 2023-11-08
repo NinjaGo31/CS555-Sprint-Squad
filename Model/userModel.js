@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import bcrypt from "bcrypt";
+import crypto from "crypto";
 const userSchema = new mongoose.Schema({
   userName: {
     type: String,
@@ -33,6 +34,8 @@ const userSchema = new mongoose.Schema({
   scavengerHuntsCompleted: String,
   rewardsRedeemed: String,
   passwordChangedAt: Date,
+  passwordResetToken: String,
+  passwordResetTokenExpire: Date
 });
 
 // encrypt the password
@@ -53,5 +56,17 @@ userSchema.methods.changedPasswordAfter = function (JWTTimeStamp) {
   }
   return false;
 };
+
+userSchema.methods.createResetPasswordToken = function () {
+  const resetToken = crypto.randomBytes(32).toString('hex');
+  //encryption
+  this.passwordResetToken = crypto.createHash('sha256').update(resetToken).digest('hex');
+  this.passwordResetTokenExpire = Date.now()+ 10*60*1000;//10 min
+  //console.log(resetToken,this.passwordResetToken);
+
+  return resetToken;
+
+};
+
 const User = mongoose.model("Users", userSchema);
 export { User };

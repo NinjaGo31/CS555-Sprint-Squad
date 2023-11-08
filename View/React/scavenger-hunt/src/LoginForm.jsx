@@ -62,6 +62,7 @@ const LoginForm = ({ onLogin }) => {
           onChange={changeHandler}
         />
       <button type="submit">Submit</button>
+      <a href="/forgotPassword" className="forgot-password-link">Forgot Password?</a>
     </form>
 
   );

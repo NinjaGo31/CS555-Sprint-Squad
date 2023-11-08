@@ -5,6 +5,7 @@ import {
   OverlayView,
 } from "@react-google-maps/api";
 import { useState, useEffect } from "react";
+import axios from 'axios';
 import MapContainer from "./components/MapContainer";
 function Map(props) {
   const { isLoaded } = useLoadScript({
@@ -19,6 +20,7 @@ function Map(props) {
 }
 
 function RenderMap(props) {
+  const [scavengerHunts, setScavengerHunts] = useState([]);
   const [loc, setLoc] = useState({
     coords: { latitude: 40.744838, longitude: -74.025683 },
   });
@@ -65,7 +67,17 @@ function RenderMap(props) {
       console.log("reached the hunting ground");
     }
   });
+/*Adding  ode to fetch the scavenger data */
+async function fetchScavengerHunts() {
+  try {
+    const response = await axios.get('http://127.0.0.1:3000/api/v1/scavengerHunt');
+    setScavengerHunts(response.data.data.users);
+  } catch (error) {
+    console.error("Failed to fetch scavenger hunts", error);
+  }
+}
 
+fetchScavengerHunts();
   return (
     <div style={{ position: "relative" }}>
       <GoogleMap
@@ -103,10 +115,11 @@ function RenderMap(props) {
         }}
       >
         <h3>Legend</h3>
-        <p>Custom Scavenger hunt  item 1</p>
-        <p>Custom Scavenger hunt item 2</p>
-        {/* Add more legend items as needed */}
-        {/* {loc.coords.latitude} */}
+        {
+          scavengerHunts.map(hunt => (
+            <p key={hunt._id}>{hunt.scavengerName}</p>
+          ))
+        }
       </div>
     </div>
   );
