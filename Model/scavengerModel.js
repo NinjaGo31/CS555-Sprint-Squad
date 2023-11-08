@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+
 const scavengerSchema = new mongoose.Schema({
   scavengerName: {
     type: String,
@@ -22,16 +23,12 @@ const scavengerSchema = new mongoose.Schema({
   },
   scavengerStops: [
     {
-      type: {
-        type: String,
-        default: "Point",
-        enum: ["Point"],
-      },
-      coordinates: [Number],
-      address: String,
-      description: String,
-    },
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'ClueLocation'
+    }
   ],
 });
+
 const scavengerModel = mongoose.model("ScavengerHunt", scavengerSchema);
+
 export { scavengerModel };
