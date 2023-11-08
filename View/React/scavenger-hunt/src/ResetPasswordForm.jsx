@@ -71,7 +71,7 @@ const ResetPasswordForm = () => {
             className="toggle-password-visibility"
             onClick={() => setIsRevealPassword(prevState => !prevState)}
           >
-            {isRevealPassword ? <FaEyeSlash /> : <FaEye />}
+            {isRevealPassword ? <FaEye /> : <FaEyeSlash />}
           </button>
         </div>
         <button type="submit" className="form-button">Reset Password</button>
