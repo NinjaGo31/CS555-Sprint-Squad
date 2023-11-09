@@ -1,7 +1,7 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 
-const SignupForm = ({ onSignup , onLogin}) => {
+const SignupForm = ({ onSignup, onLogin }) => {
   const [formData, setFormData] = useState({
     userName: "",
     email: "",
@@ -10,6 +10,7 @@ const SignupForm = ({ onSignup , onLogin}) => {
   });
 
   const [errors, setErrors] = useState({});
+  const [submit, setSubmit] = useState(false);
 
   function changeHandler(e) {
     const { name, value } = e.target;
@@ -44,12 +45,9 @@ const SignupForm = ({ onSignup , onLogin}) => {
     return Object.keys(errors).length === 0;
   }
 
-  async function handleSubmit(e) {
-    e.preventDefault();
-
-    if (validateForm()) {
-      try {
-        console.log(formData)
+  useEffect(() => {
+    if (submit && validateForm()) {
+      (async () => {
         const response = await axios.post(
           "http://127.0.0.1:3000/api/v1/users/signup",
           formData
@@ -59,10 +57,13 @@ const SignupForm = ({ onSignup , onLogin}) => {
           onSignup();
           onLogin();
         }
-      } catch (error) {
-        console.log(error);
-      }
+      })();
     }
+  }, [submit]);
+
+  async function handleSubmit(e) {
+    e.preventDefault();
+    setSubmit((c) => !c);
   }
 
   return (
@@ -80,7 +81,9 @@ const SignupForm = ({ onSignup , onLogin}) => {
         }}
         // className="form-input"
       />
-      {errors.userName && <span className="error-message">{errors.userName}</span>}
+      {errors.userName && (
+        <span className="error-message">{errors.userName}</span>
+      )}
       <label id="email">Email</label>
       <input
         className="login-input"
@@ -106,9 +109,11 @@ const SignupForm = ({ onSignup , onLogin}) => {
         onChange={(e) => {
           changeHandler(e);
         }}
-      // className="form-input"
+        // className="form-input"
       />
-      {errors.password && <span className="error-message">{errors.password}</span>}
+      {errors.password && (
+        <span className="error-message">{errors.password}</span>
+      )}
       <label id="passwordConfirm">Confirm Password</label>
       <input
         type="password"
@@ -126,7 +131,6 @@ const SignupForm = ({ onSignup , onLogin}) => {
       )}
       <button className="submit-button">Sign Up</button>
     </form>
-
   );
 };
 
