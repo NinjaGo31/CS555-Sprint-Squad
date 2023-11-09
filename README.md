@@ -31,8 +31,11 @@ command -> cd View/React/scavenger-hunt --description(Move inside the scavenger 
 command -> npm run dev  - description( This will start the Vite development server, which you can access at http://localhost:5173/)
 
 Usage
+
 Once both servers are running, you can navigate to http://localhost:5173/ to start using the Digital Scavenger Hunt application.
 
 Configuration
+
 The Node.js server listens on port 3000 by default.
+
 The Vite development server listens on port 5173 by default.
