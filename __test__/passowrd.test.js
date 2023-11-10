@@ -79,7 +79,7 @@ describe("forgotPassword function", () => {
 
     expect(sendEmail).toHaveBeenCalledWith(expect.objectContaining({ email: mockUser.email }));
     expect(res.status).toHaveBeenCalledWith(200);
-    expect(res.json).toHaveBeenCalledWith({ status: 'success', message: 'password reset link sent to the user email' });
+    expect(res.json).toHaveBeenCalledWith({ status: 'success', message: 'A password reset link has been sent to your email address.' });
   });
 
   it("should handle email sending failure", async () => {
