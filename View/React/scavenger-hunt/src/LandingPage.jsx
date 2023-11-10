@@ -5,7 +5,7 @@ import "./App.css";
 import Modal from "./components/Modal";
 import SignupForm from "./SignupForm";
 
-const LandingPage = ({ onLogin , onSignup,setModalOpen}) => {
+const LandingPage = ({ onLogin , onSignup,setModalOpen,onForgotPassword,onResetPassword}) => {
   const [loginformShow, setLoginFormShow] = useState(false);
   const [signUpFormShow, signUpSetFormShow] = useState(false);
   return (
@@ -23,7 +23,7 @@ const LandingPage = ({ onLogin , onSignup,setModalOpen}) => {
       </div>
       {loginformShow && (
         <Modal >
-          <LoginForm onLogin={onLogin} />
+          <LoginForm onLogin={onLogin} onForgotPassword={onForgotPassword} onResetPassword ={onResetPassword}/>
         </Modal>
       )}
       {
