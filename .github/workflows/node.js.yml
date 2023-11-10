@@ -31,3 +31,5 @@ jobs:
       run: npm cache clean --force
     - run: npm ci
     - run: npm test
+    - name: Lint Code
+      run: npm run lint
