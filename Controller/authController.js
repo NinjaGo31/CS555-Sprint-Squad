@@ -128,7 +128,8 @@ async function forgotPassword(req, res, next){
   const resetToken = user.createResetPasswordToken();
   await user.save({validateBeforeSave:false});
   //3.send the token back to the user email
-  const resetUrl =`${req.protocol}://${req.get('host')}/api/v1/users/resestPassword/${resetToken}`;
+  //const resetUrl =`${req.protocol}://${req.get('host')}/api/v1/users/resestPassword/${resetToken}`;
+  const resetUrl = `${req.protocol}://${req.get('host').includes('3000') ? 'localhost:5173' : req.get('host')}/resetPassword/${resetToken}`;
   const message = `We have received a password reset request.Please use the below link to reset your password\n\n${resetUrl}\n\nThis reset password link will be valid only for 10 mins`;
   //handling for rejected promise
   try{
@@ -139,7 +140,7 @@ async function forgotPassword(req, res, next){
     });
     res.status(200).json({
       status:'success',
-      message:'password reset link sent to the user email'
+      message:'A password reset link has been sent to your email address.'
     })
 
   }catch(e){

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-const LoginForm = ({ onLogin }) => {
+const LoginForm = ({ onLogin,onForgotPassword }) => {
   const [formData, setFormData] = useState({
     userName: "",
     password: "",
@@ -58,6 +58,7 @@ const LoginForm = ({ onLogin }) => {
         onChange={changeHandler}
       />
       <button type="submit">Submit</button>
+      <button type="button" className="forgot-password-link" onClick={onForgotPassword}>Forgot Password?</button>
     </form>
   );
 };
