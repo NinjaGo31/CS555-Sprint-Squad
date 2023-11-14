@@ -50,8 +50,8 @@ jobs:
         uses: SonarSource/sonarcloud-github-action@master
         with:
           args: >
-            -Dsonar.projectKey=sbahala_Triangle567_2A
-            -Dsonar.organization=sbahala
+            -Dsonar.projectKey=NinjaGo31_CS555-Sprint-Squad
+            -Dsonar.organization=ninjago31
             -Dsonar.sources=.
             -Dsonar.host.url=https://sonarcloud.io
         env:
