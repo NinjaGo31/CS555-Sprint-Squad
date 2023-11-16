@@ -1,15 +1,21 @@
-import { scavengerModel } from './scavengerModel';
+import { scavengerModel } from "./scavengerModel.js"
 
-// Assuming userId is the user's ID and scavengerHuntsCompleted is an array of completed scavenger hunt IDs
-const userId = 'your_user_id';
-const scavengerHuntsCompleted = ['completed_id_1', 'completed_id_2'];
+/**
+ * Search for scavenger hunts based on a search term.
+ * @param {string} searchTerm - The term to search for.
+ * @returns {Promise} A promise that resolves to the search results.
+ */
+const filterScavengerHunts = (searchTerm) => {
+  // Use a regular expression for a case-insensitive search
+  const regex = new RegExp(searchTerm, "i");
 
+  // Filter by scavengerName and description fields
+  return scavengerModel.find({
+    $or: [
+      { scavengerName: { $regex: regex } },
+      { description: { $regex: regex } },
+    ],
+  });
+};s
 
-const query = {
-  _id: { $nin: scavengerHuntsCompleted },
-};
-
-// Execute the query
-const filteredScavengerHunts = await scavengerModel.find(query);
-
-console.log(filteredScavengerHunts);
+export { filterScavengerHunts };
