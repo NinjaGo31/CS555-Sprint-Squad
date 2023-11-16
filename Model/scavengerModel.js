@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+
 const scavengerSchema = new mongoose.Schema({
   scavengerName: {
     type: String,
@@ -33,5 +34,7 @@ const scavengerSchema = new mongoose.Schema({
     },
   ],
 });
+
 const scavengerModel = mongoose.model("ScavengerHunt", scavengerSchema);
+
 export { scavengerModel };
