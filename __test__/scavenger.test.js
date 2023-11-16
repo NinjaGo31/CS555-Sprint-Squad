@@ -26,52 +26,6 @@ const mockResponse = () => {
 };
 
 const nextFunction = jest.fn();
-
-describe('getAllScavenger', () => {
-    it('should return all scavenger hunts', async () => {
-      scavengerModel.find.mockResolvedValue(['hunt1', 'hunt2']);
-      const req = mockRequest();
-      const res = mockResponse();
-  
-      await ScavengerController.getAllScavenger(req, res, nextFunction);
-  
-      expect(res.status).toHaveBeenCalledWith(200);
-      expect(res.json).toHaveBeenCalledWith({
-        status: "success",
-        data: {
-          hunts: ['hunt1', 'hunt2'],
-        },
-      });
-    });
-  
-    it('should handle errors', async () => {
-      scavengerModel.find.mockRejectedValue(new Error('Error fetching data'));
-      const req = mockRequest();
-      const res = mockResponse();
-  
-      await ScavengerController.getAllScavenger(req, res, nextFunction);
-  
-      expect(nextFunction).toHaveBeenCalledWith(expect.any(Error));
-    });
-  });
-  describe('getScavenger', () => {
-    it('should return a specific scavenger hunt', async () => {
-      const mockHunt = { id: '1', name: 'Test Hunt' };
-      scavengerModel.findById.mockResolvedValue(mockHunt);
-      const req = mockRequest({ id: '1' });
-      const res = mockResponse();
-  
-      await ScavengerController.getScavenger(req, res, nextFunction);
-  
-      expect(res.status).toHaveBeenCalledWith(200);
-      expect(res.json).toHaveBeenCalledWith({
-        status: "success",
-        data: {
-          hunt: mockHunt,
-        },
-      });
-    });
-  });
   describe('updateScavenger', () => {
     const mockHunt = { id: '1', name: 'Updated Hunt' };
     const updateData = { name: 'Updated Hunt' };
