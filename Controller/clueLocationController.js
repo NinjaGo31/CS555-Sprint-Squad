@@ -1,28 +1,27 @@
-import { ClueLocation } from '../Model/clueLocationModel.js';
+import { scavengerModel } from '../Model/scavengerModel.js';
 
-const createClueLocation = async (req, res, next) => {
-  try {
-    const { locationName, coordinates, address, description } = req.body;
-    const clueLocation = await ClueLocation.create({
-      locationName,
-      coordinates,
-      address,
-      description,
-    });
-    res.status(201).json({
-      status: 'success',
-      data: {
-        clueLocation,
-      },
-    });
-  } catch (error) {
-    next(error);
-  }
+const handleNotFound = (scavengerId) => {
+  const err = new Error(`Scavenger hunt with ID ${scavengerId} not found`);
+  err.statusCode = 404;
+  throw err;
 };
 
-const getAllClueLocations = async (req, res, next) => {
+const handleInvalidId = (scavengerId) => {
+  const err = new Error(`Invalid ID format: ${scavengerId}`);
+  err.statusCode = 400;
+  throw err;
+};
+
+const getClueLocations = async (req, res, next) => {
   try {
-    const clueLocations = await ClueLocation.find();
+    const scavengerId = req.params.id;
+    const hunt = await scavengerModel.findById(scavengerId);
+
+    if (!hunt) {
+      handleNotFound(scavengerId);
+    }
+
+    const clueLocations = hunt.scavengerStops;
     res.status(200).json({
       status: 'success',
       data: {
@@ -30,19 +29,31 @@ const getAllClueLocations = async (req, res, next) => {
       },
     });
   } catch (error) {
-    next(error);
+    const err = error;
+    if (err.kind === 'ObjectId') {
+      handleInvalidId(scavengerId);
+    }
+    next(err);
   }
 };
 
 const getClueLocation = async (req, res, next) => {
   try {
-    const clueLocationId = req.params.id;
-    const clueLocation = await ClueLocation.findById(clueLocationId);
+    const { id, locationId } = req.params;
+    const hunt = await scavengerModel.findById(id);
+
+    if (!hunt) {
+      handleNotFound(id);
+    }
+
+    const clueLocation = hunt.scavengerStops.id(locationId);
+
     if (!clueLocation) {
-      const err = new Error(`Clue Location with ID ${clueLocationId} not found`);
+      const err = new Error(`Clue Location with ID ${locationId} not found`);
       err.statusCode = 404;
       throw err;
     }
+
     res.status(200).json({
       status: 'success',
       data: {
@@ -50,27 +61,63 @@ const getClueLocation = async (req, res, next) => {
       },
     });
   } catch (error) {
-    next(error);
+    const err = error;
+    if (err.kind === 'ObjectId') {
+      handleInvalidId(id);
+    }
+    next(err);
+  }
+};
+
+const createClueLocation = async (req, res, next) => {
+  try {
+    const scavengerId = req.params.id;
+    const hunt = await scavengerModel.findById(scavengerId);
+
+    if (!hunt) {
+      handleNotFound(scavengerId);
+    }
+
+    const newClueLocation = req.body;
+    hunt.scavengerStops.push(newClueLocation);
+    await hunt.save();
+
+    res.status(201).json({
+      status: 'success',
+      data: {
+        clueLocation: newClueLocation,
+      },
+    });
+  } catch (error) {
+    const err = error;
+    if (err.kind === 'ObjectId') {
+      handleInvalidId(scavengerId);
+    }
+    next(err);
   }
 };
 
 const updateClueLocation = async (req, res, next) => {
   try {
-    const clueLocationId = req.params.id;
+    const { id, locationId } = req.params;
+    const hunt = await scavengerModel.findById(id);
+
+    if (!hunt) {
+      handleNotFound(id);
+    }
+
     const updatedData = req.body;
-    const clueLocation = await ClueLocation.findByIdAndUpdate(
-      clueLocationId,
-      updatedData,
-      {
-        new: true,
-        runValidators: true,
-      }
-    );
+    const clueLocation = hunt.scavengerStops.id(locationId);
+
     if (!clueLocation) {
-      const err = new Error(`Clue Location with ID ${clueLocationId} not found`);
+      const err = new Error(`Clue Location with ID ${locationId} not found`);
       err.statusCode = 404;
       throw err;
     }
+
+    Object.assign(clueLocation, updatedData);
+    await hunt.save();
+
     res.status(200).json({
       status: 'success',
       data: {
@@ -78,32 +125,51 @@ const updateClueLocation = async (req, res, next) => {
       },
     });
   } catch (error) {
-    next(error);
+    const err = error;
+    if (err.kind === 'ObjectId') {
+      handleInvalidId(id);
+    }
+    next(err);
   }
 };
 
 const deleteClueLocation = async (req, res, next) => {
   try {
-    const clueLocationId = req.params.id;
-    const clueLocation = await ClueLocation.findByIdAndDelete(clueLocationId);
+    const { id, locationId } = req.params;
+    const hunt = await scavengerModel.findById(id);
+
+    if (!hunt) {
+      handleNotFound(id);
+    }
+
+    const clueLocation = hunt.scavengerStops.id(locationId);
+
     if (!clueLocation) {
-      const err = new Error(`Clue Location with ID ${clueLocationId} not found`);
+      const err = new Error(`Clue Location with ID ${locationId} not found`);
       err.statusCode = 404;
       throw err;
     }
+
+    clueLocation.remove();
+    await hunt.save();
+
     res.status(204).json({
       status: 'success',
       data: null,
     });
   } catch (error) {
-    next(error);
+    const err = error;
+    if (err.kind === 'ObjectId') {
+      handleInvalidId(id);
+    }
+    next(err);
   }
 };
 
 export {
-  createClueLocation,
-  getAllClueLocations,
+  getClueLocations,
   getClueLocation,
+  createClueLocation,
   updateClueLocation,
   deleteClueLocation,
 };

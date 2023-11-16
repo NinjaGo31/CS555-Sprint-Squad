@@ -23,9 +23,15 @@ const scavengerSchema = new mongoose.Schema({
   },
   scavengerStops: [
     {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'ClueLocation'
-    }
+      type: {
+        type: String,
+        default: "Point",
+        enum: ["Point"],
+      },
+      coordinates: [Number],
+      address: String,
+      description: String,
+    },
   ],
 });
 

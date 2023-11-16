@@ -2,7 +2,6 @@ import express from "express";
 import { userRouter } from "./Routes/userRoutes.js";
 import { scavengerRouter } from "./Routes/scavengerRoutes.js";
 import cors from "cors"
-import { clueLocationRouter } from './Routes/clueLocationRoutes.js'; 
 
 const app = express();
 // Global middleware
@@ -12,7 +11,6 @@ app.use(express.json());
 // Parent routes
 app.use("/api/v1/users", userRouter);
 app.use("/api/v1/scavengerHunt", scavengerRouter);
-app.use('/api/v1/clueLocations', clueLocationRouter);
 
 // unhandled routes
 app.all("*", (req, res, next) => {

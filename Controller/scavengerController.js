@@ -1,5 +1,4 @@
 import { scavengerModel } from "../Model/scavengerModel.js";
-import { ClueLocation } from "../Model/clueLocationModel.js";
 
 const handleNotFound = (scavengerId) => {
   const err = new Error(`Scavenger hunt with ID ${scavengerId} not found`);
@@ -91,23 +90,11 @@ const createScavenger = async (req, res, next) => {
     const { scavengerName, description, startLocation, scavengerStops } =
       req.body;
 
-    // Create an array to store references to Clue Locations
-    const clueLocationRefs = [];
-
-    // Loop through the provided Clue Location IDs and create references
-    for (const clueLocationId of scavengerStops) {
-      const clueLocation = await ClueLocation.findById(clueLocationId);
-      if (clueLocation) {
-        clueLocationRefs.push(clueLocation);
-      }
-    }
-
-    // Create the Scavenger Hunt with references to Clue Locations
     const hunt = await scavengerModel.create({
       scavengerName,
       description,
       startLocation,
-      scavengerStops: clueLocationRefs, // Store references to Clue Locations
+      scavengerStops,
     });
 
     res.status(200).json({
