@@ -10,8 +10,7 @@ jest.mock('../Model/scavengerModel.js', () => ({
 
 const mockedScavengerModel = scavengerModel;
 
-const mockRequest = (body, params = {}) => ({
-  body,
+const mockRequest = (params = {}) => ({
   params,
   protocol: 'http',
   get: jest.fn(() => 'example.com'),
@@ -24,6 +23,13 @@ const mockResponse = () => {
   return res;
 };
 
+let req, res, next;
+
+beforeEach(() => {
+  req = mockRequest();
+  res = mockResponse();
+  next = jest.fn();
+});
 
 describe('getAllScavenger', () => {
 
