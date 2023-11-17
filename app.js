@@ -1,9 +1,11 @@
 import express from "express";
 import { userRouter } from "./Routes/userRoutes.js";
 import { scavengerRouter } from "./Routes/scavengerRoutes.js";
-const app = express();
+import cors from "cors"
 
+const app = express();
 // Global middleware
+app.use(cors());
 app.use(express.json());
 
 // Parent routes
