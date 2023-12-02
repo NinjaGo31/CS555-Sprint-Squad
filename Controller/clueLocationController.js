@@ -70,8 +70,8 @@ const getClueLocation = async (req, res, next) => {
 };
 
 const createClueLocation = async (req, res, next) => {
+  const scavengerId = req.params.id;
   try {
-    const scavengerId = req.params.id;
     const hunt = await scavengerModel.findById(scavengerId);
 
     if (!hunt) {
@@ -98,8 +98,8 @@ const createClueLocation = async (req, res, next) => {
 };
 
 const updateClueLocation = async (req, res, next) => {
+  const { id, locationId } = req.params;
   try {
-    const { id, locationId } = req.params;
     const hunt = await scavengerModel.findById(id);
 
     if (!hunt) {
@@ -134,8 +134,8 @@ const updateClueLocation = async (req, res, next) => {
 };
 
 const deleteClueLocation = async (req, res, next) => {
+  const { id, locationId } = req.params;
   try {
-    const { id, locationId } = req.params;
     const hunt = await scavengerModel.findById(id);
 
     if (!hunt) {
