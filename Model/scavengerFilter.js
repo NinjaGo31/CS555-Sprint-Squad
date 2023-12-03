@@ -15,7 +15,34 @@ const filterScavengerHunts = (searchTerm) => {
       { scavengerName: { $regex: regex } },
       { description: { $regex: regex } },
     ],
+    $or: [
+      { "startLocation.address": { $regex: regex } },
+      { "scavengerStops.address": { $regex: regex } },
+    ],
   });
-};s
-
+};
 export { filterScavengerHunts };
+
+// Another way to do the same thing
+
+/*
+const filterScavengerHunts = async (searchTerm) => {
+  const regex = new RegExp(searchTerm, 'i');
+  const filter = {
+    $or: [
+      { scavengerName: { $regex: regex } },
+      { description: { $regex: regex } },
+      { 'startLocation.address': { $regex: regex } },
+      { 'scavengerStops.address': { $regex: regex } }
+    ]
+  };
+
+  try {
+    const result = await scavengerModel.find(filter);
+    return result;
+  } catch (error) {
+    console.error('Error filtering scavenger hunts:', error);
+    throw error;
+  }
+};
+*/
