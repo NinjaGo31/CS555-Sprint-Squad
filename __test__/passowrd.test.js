@@ -2,6 +2,7 @@ import * as AuthController from "../Controller/authController.js";
 import {User as userModel} from "../Model/userModel.js";
 import {sendEmail} from "../Utils/email.js";
 import dotenv from 'dotenv';
+import { signUp } from "../Controller/authController.js";
 dotenv.config({ path: '.env.test' });
 
 
@@ -16,6 +17,7 @@ afterAll(() => {
 // Mocking the userModel and its named export 'User'
 jest.mock('../Model/userModel.js', () => ({
     User: {
+      create: jest.fn(),
       findOne: jest.fn()
     }
   }));
@@ -163,9 +165,7 @@ describe("resetPassword function", () => {
 });
 // <------- signup testcase --------->
 // const signUp = require('./Con'); // Import the signUp function
-import { signUp } from "../Controller/authController.js";
 // const userModel = require('./path/to/userModel'); // Import the userModel
-import { User as userModel } from "../Model/userModel.js";
 const jwt = require('jsonwebtoken'); // Import the jsonwebtoken library
 
 jest.mock('../Model/userModel.js'); // Mock the userModel module
