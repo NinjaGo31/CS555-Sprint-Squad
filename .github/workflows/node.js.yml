@@ -30,4 +30,6 @@ jobs:
     - name: Clear NPM cache
       run: npm cache clean --force
     - run: npm ci
-    - run: npm test
+    #- run: npm test
+    - name: Run Jest with coverage
+      run: npm run test:coverage
