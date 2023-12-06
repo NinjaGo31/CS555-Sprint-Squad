@@ -1,0 +1,47 @@
+{
+    "topic": "Famous-Figures",
+    "scavengerName": "Historical Luminaries",
+    "description": "Embark on an intriguing quest to uncover the stories of Jersey City's most celebrated historical figures, guided by riddles and clues that lead you to sites associated with their remarkable lives and contributions. Each location holds a piece of the puzzle, revealing the impact these individuals had on shaping the city's heritage.",
+    "startLocation": {
+      "description": "Berry Lane Park",
+      "type": "Point",
+      "coordinates": [-74.0675, 40.712222]
+    },
+    "scavengerStops": [
+      {
+        "scavengerName": "Berry Lane Park",
+        "type": "Point",
+        "clue": "A pioneer of public education, her vision took flight, She championed knowledge, illuminating the night.",
+        "solution": "Berry Lane Park, the site of the original schoolhouse where Abigail Mott, a leading figure in the development of public education in Jersey City, taught for over 50 years.",
+        "coordinates": [-74.0675, 40.712222]
+      },
+      {
+        "scavengerName": "Harsimus Cemetery",
+        "type": "Point",
+        "clue": "A man of commerce, his influence grew, He shaped Jersey City's skyline, its urban hue.",
+        "solution": "Harsimus Cemetery, the resting place of Cornelius Van Vorst, a prominent businessman and civic leader who played a significant role in Jersey City's development and expansion.",
+        "coordinates": [-74.0552, 40.7272]
+      },
+      {
+        "scavengerName": "Hamilton Park",
+        "type": "Point",
+        "clue": "A renowned artist, his legacy endures, His sculptures grace our city, their beauty assures.",
+        "solution": "Hamilton Park, home to several sculptures by Frederick William MacMonnies, a Jersey City native who became one of America's most celebrated sculptors during the late 19th and early 20th centuries.",
+        "coordinates": [-74.0469, 40.7277]
+      },
+      {
+        "scavengerName": "The J.C. Jacobsen House",
+        "type": "Point",
+        "clue": "A home of innovation, where ideas took form, It witnessed inventions, defying the norm.",
+        "solution": "The J.C. Jacobsen House, the former home of John C. Jacobsen, a renowned inventor who developed numerous innovations, including the first practical submarine and the telephoto lens.",
+        "coordinates": [-74.0354, 40.7222]
+      },
+      {
+        "scavengerName": "Jersey City Hall",
+        "type": "Point",
+        "clue": "A symbol of governance, where leaders convene, It stands tall and proud, a historical scene.",
+        "solution": "Jersey City Hall, a landmark building that has served as the seat of Jersey City government since 1839, representing the city's history and civic pride.",
+        "coordinates": [-74.0431, 40.7178]
+      }
+    ]
+  }
