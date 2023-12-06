@@ -6,37 +6,84 @@ import { signUp } from "../Controller/authController.js";
 import bcrypt from 'bcryptjs';
 dotenv.config({ path: '.env.test' });
 
+// Load environment configuration for testing
+dotenv.config({ path: '.env.test' });
+
+// Set mock values for environment variables
+const mockJwtSecret = "myTestSecret";
+const mockPasswordHash = "mockBcryptHashedPassword"; // This should be a bcrypt-like hash
+const mockLoginPassword = "testpassword"; // Plaintext password for login tests
+
 
 beforeAll(() => {
-    process.env.JWT_SECRET = "myTestSecret";
+    process.env.JWT_SECRET = mockJwtSecret;
+    process.env.test_password = mockPasswordHash;
+    process.env.test_login_password = mockLoginPassword;
   });
   
 afterAll(() => {
     delete process.env.JWT_SECRET;
+    delete process.env.test_password;
+    delete process.env.test_login_password;
   });
 
-// Mocking the userModel and its named export 'User'
-jest.mock('../Model/userModel.js', () => ({
-  User: {
-    findById: jest.fn(),
-    create: jest.fn(),
-    findOne: jest.fn(() => ({
-      select: jest.fn(() => Promise.resolve({
-        _id: 'mockUserId',
-        userName: 'testuser',
-        email: 'test@example.com',
-        password: 'hashedpassword',
-      })),
-    })),
-  }
-}));
+  beforeEach(() => {
+    jest.clearAllMocks();
+    
+    // Mock bcrypt.compare to resolve to true for matching passwords
+    jest.mock('bcryptjs', () => {
+      return {
+        ...jest.requireActual('bcryptjs'),
+        compare: jest.fn().mockResolvedValue(true),
+      };
+    });
+  
+    // Mock jwt methods
+    jest.mock('jsonwebtoken', () => {
+      return {
+        sign: jest.fn().mockReturnValue("mockToken"),
+        verify: jest.fn().mockResolvedValue({ id: 'mockUserId' }),
+      };
+    });
+  
+    // Mock the sendEmail function
+    jest.mock('../Utils/email.js', () => {
+      return {
+        sendEmail: jest.fn(),
+      };
+    });
+  
+    // Mock the userModel directly in the beforeEach to reset mocks before each test
+    jest.mock('../Model/userModel.js', () => {
+      return {
+        User: {
+          findById: jest.fn(),
+          create: jest.fn(),
+          findOne: jest.fn().mockImplementation(() => ({
+            select: jest.fn().mockResolvedValue({
+              _id: 'mockUserId',
+              userName: 'testuser',
+              email: 'test@example.com',
+              password: process.env.test_password,
+            })
+          })),
+        }
+      };
+    });
+  });
 
+import { User as mockedUserModel } from "../Model/userModel.js";
+  
+  
+//const mockedUserModel = userModel;
 
-const mockedUserModel = userModel;
-
-jest.mock('bcryptjs', () => ({
+/*jest.mock('bcryptjs', () => ({
   compare: jest.fn(),
 }));
+jest.mock('bcryptjs', () => ({
+  compare: jest.fn().mockResolvedValue(true),
+}));*/
+
 
 jest.mock('jsonwebtoken', () => ({
   sign: jest.fn(),
@@ -275,7 +322,7 @@ describe("logIn function", () => {
     req = mockRequest({
       body: {
         userName: 'testuser',
-        password: 'password123',
+        password: process.env.test_login_password,
       },
     });
     res = mockResponse();
@@ -284,9 +331,9 @@ describe("logIn function", () => {
 
   it('should log in user and return a token if credentials are correct', async () => {
     userModel.findOne.mockImplementation(() => ({
-      select: jest.fn(() => Promise.resolve({ _id: 'userId', password: 'hashedpassword' })),
+      select: jest.fn(() => Promise.resolve({ _id: 'userId', password: process.env.test_password })),
     }));
-    const req = mockRequest({ userName: 'testuser', password: 'password123' });
+    const req = mockRequest({ userName: 'testuser', password: process.env.test_login_password });
   
     await AuthController.logIn(req, res, next);
     expect(userModel.findOne).toHaveBeenCalledWith({ userName: 'testuser' });
