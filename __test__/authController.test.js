@@ -3,6 +3,7 @@ import {User as userModel} from "../Model/userModel.js";
 import {sendEmail} from "../Utils/email.js";
 import dotenv from 'dotenv';
 import { signUp } from "../Controller/authController.js";
+import bcrypt from 'bcryptjs';
 dotenv.config({ path: '.env.test' });
 
 
@@ -16,14 +17,31 @@ afterAll(() => {
 
 // Mocking the userModel and its named export 'User'
 jest.mock('../Model/userModel.js', () => ({
-    User: {
-      create: jest.fn(),
-      findOne: jest.fn()
-    }
-  }));
+  User: {
+    findById: jest.fn(),
+    create: jest.fn(),
+    findOne: jest.fn(() => ({
+      select: jest.fn(() => Promise.resolve({
+        _id: 'mockUserId',
+        userName: 'testuser',
+        email: 'test@example.com',
+        password: 'hashedpassword',
+      })),
+    })),
+  }
+}));
+
 
 const mockedUserModel = userModel;
 
+jest.mock('bcryptjs', () => ({
+  compare: jest.fn(),
+}));
+
+jest.mock('jsonwebtoken', () => ({
+  sign: jest.fn(),
+  verify: jest.fn(),
+}));
 
 // Mocking the sendEmail function
 jest.mock('../Utils/email.js', () => ({
@@ -248,3 +266,96 @@ describe('signUp', () => {
   });
 });
 
+//Additional test cases
+
+describe("logIn function", () => {
+  let req, res, next;
+
+  beforeEach(() => {
+    req = mockRequest({
+      body: {
+        userName: 'testuser',
+        password: 'password123',
+      },
+    });
+    res = mockResponse();
+    next = jest.fn();
+  });
+
+  it('should log in user and return a token if credentials are correct', async () => {
+    userModel.findOne.mockImplementation(() => ({
+      select: jest.fn(() => Promise.resolve({ _id: 'userId', password: 'hashedpassword' })),
+    }));
+    const req = mockRequest({ userName: 'testuser', password: 'password123' });
+  
+    await AuthController.logIn(req, res, next);
+    expect(userModel.findOne).toHaveBeenCalledWith({ userName: 'testuser' });
+  });
+  
+
+  it('should handle no username or password provided', async () => {
+    req.body = {};
+
+    await AuthController.logIn(req, res, next);
+
+    expect(next).toHaveBeenCalledWith(expect.objectContaining({ statusCode: 401 }));
+  });
+
+});
+
+describe('protect function', () => {
+  let req, res, next;
+
+  beforeEach(() => {
+    req = {
+      headers: {
+        authorization: 'Bearer token123',
+      },
+    };
+    res = mockResponse();
+    next = jest.fn();
+  });
+
+  /*it('should set req.user if token is valid', async () => {
+    jwt.verify.mockResolvedValue({ id: 'userId' });
+    userModel.findById.mockResolvedValue({ _id: 'userId' });
+
+    await AuthController.protect(req, res, next);
+
+    expect(next).toHaveBeenCalled();
+  });*/
+  it('should return an error if no token is provided', async () => {
+    req.headers = {};
+
+    await AuthController.protect(req, res, next);
+
+    expect(next).toHaveBeenCalledWith(expect.objectContaining({ statusCode: 401 }));
+  });
+
+});
+
+
+describe('restrictTo function', () => {
+  const req = {
+    user: {
+      role: 'user',
+    },
+  };
+  const res = mockResponse();
+  const next = jest.fn();
+
+  it('should call next if user role is included in roles', () => {
+    const handler = AuthController.restrictTo('user', 'admin');
+    handler(req, res, next);
+
+    expect(next).toHaveBeenCalled();
+  });
+
+  it('should return an error if user role is not included in roles', () => {
+    const handler = AuthController.restrictTo('admin');
+    handler(req, res, next);
+
+    expect(next).toHaveBeenCalledWith(expect.objectContaining({ statusCode: 403 }));
+  });
+
+});
