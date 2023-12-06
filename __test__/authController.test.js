@@ -5,10 +5,6 @@ import dotenv from 'dotenv';
 import { signUp } from "../Controller/authController.js";
 import bcrypt from 'bcryptjs';
 dotenv.config({ path: '.env.test' });
-
-// Load environment configuration for testing
-
-// Set mock values for environment variables
 const mockJwtSecret = "myTestSecret";
 const mockPasswordHash = "mockBcryptHashedPassword"; // This should be a bcrypt-like hash
 const mockLoginPassword = "testpassword"; // Plaintext password for login tests
@@ -72,18 +68,6 @@ afterAll(() => {
   });
 
 import { User as mockedUserModel } from "../Model/userModel.js";
-  
-  
-//const mockedUserModel = userModel;
-
-/*jest.mock('bcryptjs', () => ({
-  compare: jest.fn(),
-}));
-jest.mock('bcryptjs', () => ({
-  compare: jest.fn().mockResolvedValue(true),
-}));*/
-
-
 jest.mock('jsonwebtoken', () => ({
   sign: jest.fn(),
   verify: jest.fn(),
@@ -118,7 +102,6 @@ describe("forgotPassword function", () => {
   });
 
   it("should handle user not found", async () => {
-    //userModel.findOne.mockResolvedValue(null);
     mockedUserModel.findOne.mockResolvedValue(null);
     const req = mockRequest({ email: "notfound@example.com" });
     const res = mockResponse();
@@ -202,30 +185,6 @@ describe("resetPassword function", () => {
         expect(res.status).toHaveBeenCalledWith(201);
         expect(res.json).toHaveBeenCalledWith(expect.objectContaining({status:'success'}));
     });
-    /*it("should handle case for error during Password Reset", async () => {
-        const mockUser = {
-          _id: "sampleId",
-          password: "oldpassword",
-          passwordConfirm: "oldpassword",
-          passwordResetToken: "resetToken",
-          passwordResetTokenExpire: new Date(Date.now() + 10 * 60 * 1000), // 10 minutes from now
-          save: jest.fn().mockRejectedValue(new Error("DB save error")),
-        };
-    
-        mockedUserModel.findOne.mockResolvedValue(mockUser);
-        const req =mockRequest({
-            password:"testNewPassword",
-            passwordConfirm:"testNewPassword"},
-            {token:"resetToken"});
-        const res = mockResponse();
-        const next = jest.fn();
-        try {
-            await AuthController.resetPassword(req, res, next);
-            expect(next).toHaveBeenCalled();
-        } catch (error) {
-            throw(error);
-        }
-    });*/
 });
 // <------- signup testcase --------->
 // const signUp = require('./Con'); // Import the signUp function
@@ -361,15 +320,6 @@ describe('protect function', () => {
     res = mockResponse();
     next = jest.fn();
   });
-
-  /*it('should set req.user if token is valid', async () => {
-    jwt.verify.mockResolvedValue({ id: 'userId' });
-    userModel.findById.mockResolvedValue({ _id: 'userId' });
-
-    await AuthController.protect(req, res, next);
-
-    expect(next).toHaveBeenCalled();
-  });*/
   it('should return an error if no token is provided', async () => {
     req.headers = {};
 

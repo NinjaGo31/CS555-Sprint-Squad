@@ -68,7 +68,7 @@ const SignupForm = ({ onSignup, onLogin }) => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <label id="userName">User Name</label>
+      <label htmlFor ="userName" id="userName">User Name</label>
       <input
         className="login-input"
         type="text"
@@ -84,7 +84,7 @@ const SignupForm = ({ onSignup, onLogin }) => {
       {errors.userName && (
         <span className="error-message">{errors.userName}</span>
       )}
-      <label id="email">Email</label>
+      <label htmlFor ="email" id="email">Email</label>
       <input
         className="login-input"
         type="text"
@@ -98,7 +98,7 @@ const SignupForm = ({ onSignup, onLogin }) => {
         // className="form-input"
       />
       {errors.email && <span className="error-message">{errors.email}</span>}
-      <label id="password">Password</label>
+      <label htmlFor ="password" id="password">Password</label>
       <input
         className="login-input"
         type="password"
@@ -114,7 +114,7 @@ const SignupForm = ({ onSignup, onLogin }) => {
       {errors.password && (
         <span className="error-message">{errors.password}</span>
       )}
-      <label id="passwordConfirm">Confirm Password</label>
+      <label htmlFor ="passwordConfirm" id="passwordConfirm">Confirm Password</label>
       <input
         type="password"
         id="passwordConfirm"

@@ -20,7 +20,6 @@ const getClueLocations = async (req, res, next) => {
     if (!hunt) {
       handleNotFound(scavengerId);
     }
-
     const clueLocations = hunt.scavengerStops;
     res.status(200).json({
       status: 'success',

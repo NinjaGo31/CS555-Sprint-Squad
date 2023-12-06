@@ -35,7 +35,7 @@ const LoginForm = ({ onLogin,onForgotPassword }) => {
   }
   return (
     <form onSubmit={handleSubmit}>
-      <label id="userName">User Name</label>
+      <label htmlFor ="userName" id="userName">User Name</label>
       <input
         className="login-input"
         type="text"
@@ -47,7 +47,7 @@ const LoginForm = ({ onLogin,onForgotPassword }) => {
           changeHandler(e);
         }}
       />
-      <label id="password">Password</label>
+      <label htmlFor ="password" id="password">Password</label>
       <input
         type="password"
         className="login-input"
