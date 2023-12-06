@@ -1,5 +1,5 @@
 import { scavengerModel } from "../Model/scavengerModel.js";
-import { createClueLocation,updateClueLocation,deleteClueLocation} from "../Controller/clueLocationController.js";
+import { createClueLocation,updateClueLocation,deleteClueLocation,getClueLocations,getClueLocation} from "../Controller/clueLocationController.js";
 
 jest.mock('../Model/scavengerModel.js', () => ({
   scavengerModel: {
@@ -125,72 +125,188 @@ it("should handle database errors or invalid object IDs", async () => {
       });
            
   });
+
+  describe('deleteClueLocation function', () => {
+    afterEach(() => {
+      jest.clearAllMocks();
+    });
   
-  it("should successfully delete a clue location", async () => {
-    const mockClueLocation = {
-      _id: 'validLocationId',
-      remove: jest.fn(),
-    };
-    const mockHunt = {
-      scavengerStops: {
-        id: jest.fn((locationId) => locationId === 'validLocationId' ? mockClueLocation : null)
-      },
-      save: jest.fn(),
-    };
+    it('should handle clue location not found error', async () => {
+      // Mocking scavengerModel.findById to return a hunt object with no matching clue location
+      const mockHunt = {
+        scavengerStops: {
+          id: jest.fn().mockReturnValue(null) // No clue location found
+        },
+        save: jest.fn()
+      };
+      scavengerModel.findById.mockResolvedValue(mockHunt);
   
-    scavengerModel.findById.mockResolvedValue(mockHunt);
-    const req = mockRequest({}, { id: "validScavengerId", locationId: 'validLocationId' });
+      const req = mockRequest({}, { id: 'validScavengerId', locationId: 'nonExistentLocationId' });
+      const res = mockResponse();
+      const next = jest.fn();
+  
+      await deleteClueLocation(req, res, next);
+  
+      // Check if the next function was called with an error
+      expect(next).toHaveBeenCalledWith(expect.any(Error));
+      expect(next.mock.calls[0][0].statusCode).toBe(404);
+      expect(next.mock.calls[0][0].message).toBe(`Clue Location with ID nonExistentLocationId not found`);
+    });
+    it("should successfully delete a clue location", async () => {
+      const mockClueLocation = {
+        _id: 'validLocationId',
+        remove: jest.fn(),
+      };
+      const mockHunt = {
+        scavengerStops: {
+          id: jest.fn((locationId) => locationId === 'validLocationId' ? mockClueLocation : null)
+        },
+        save: jest.fn(),
+      };
+    
+      scavengerModel.findById.mockResolvedValue(mockHunt);
+      const req = mockRequest({}, { id: "validScavengerId", locationId: 'validLocationId' });
+      const res = mockResponse();
+    
+      await deleteClueLocation(req, res, nextFunction);
+    
+      expect(scavengerModel.findById).toHaveBeenCalledWith("validScavengerId");
+      expect(mockHunt.scavengerStops.id).toHaveBeenCalledWith('validLocationId');
+      expect(mockClueLocation.remove).toHaveBeenCalled();
+      expect(mockHunt.save).toHaveBeenCalled();
+      expect(res.status).toHaveBeenCalledWith(204);
+      expect(res.json).toHaveBeenCalledWith(expect.objectContaining({
+        status: 'success',
+        data: null,
+      }));
+    });
+  
+    it("should handle not found error when scavenger ID is invalid", async () => {
+      scavengerModel.findById.mockResolvedValue(null);
+    
+      const req = mockRequest({ id: "invalidScavengerId", locationId: 'validLocationId' });
+      const res = mockResponse();
+    
+      await deleteClueLocation(req, res, nextFunction);
+    
+      expect(nextFunction).toHaveBeenCalledWith(expect.any(Error));
+    });
+    
+    it("should handle clue location not found error", async () => {
+      const mockHunt = {
+        scavengerStops: [{
+          _id: 'validLocationId',
+          remove: jest.fn(),
+        }],
+        save: jest.fn(),
+      };
+    
+      scavengerModel.findById.mockResolvedValue(mockHunt);
+    
+      const req = mockRequest({ id: "validScavengerId", locationId: 'invalidLocationId' });
+      const res = mockResponse();
+    
+      await deleteClueLocation(req, res, nextFunction);
+    
+      expect(nextFunction).toHaveBeenCalledWith(expect.any(Error));
+    });
+    
+    it("should handle database errors or invalid object IDs", async () => {
+    scavengerModel.findById.mockRejectedValue({ kind: 'ObjectId' });
+    const req = mockRequest({}, { id: "problematicScavengerId", locationId: 'validLocationId' });
     const res = mockResponse();
   
-    await deleteClueLocation(req, res, nextFunction);
+    await expect(deleteClueLocation(req, res, nextFunction)).rejects.toThrow(`Invalid ID format: problematicScavengerId`);
   
-    expect(scavengerModel.findById).toHaveBeenCalledWith("validScavengerId");
-    expect(mockHunt.scavengerStops.id).toHaveBeenCalledWith('validLocationId');
-    expect(mockClueLocation.remove).toHaveBeenCalled();
-    expect(mockHunt.save).toHaveBeenCalled();
-    expect(res.status).toHaveBeenCalledWith(204);
+    expect(nextFunction).not.toHaveBeenCalled();
+  });
+  });
+  
+  
+
+describe('getClueLocations function', () => {
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
+
+  it('should successfully retrieve clue locations', async () => {
+    const mockHunt = { scavengerStops: ['location1', 'location2'] };
+    scavengerModel.findById.mockResolvedValue(mockHunt);
+
+    const req = mockRequest({}, { id: 'validScavengerId' });
+    const res = mockResponse();
+    const next = jest.fn();
+
+    await getClueLocations(req, res, next);
+
+    expect(res.status).toHaveBeenCalledWith(200);
     expect(res.json).toHaveBeenCalledWith(expect.objectContaining({
       status: 'success',
-      data: null,
+      data: { clueLocations: mockHunt.scavengerStops },
     }));
   });
 
-  it("should handle not found error when scavenger ID is invalid", async () => {
+  it('should handle not found error when scavenger ID is invalid', async () => {
     scavengerModel.findById.mockResolvedValue(null);
-  
-    const req = mockRequest({ id: "invalidScavengerId", locationId: 'validLocationId' });
-    const res = mockResponse();
-  
-    await deleteClueLocation(req, res, nextFunction);
-  
-    expect(nextFunction).toHaveBeenCalledWith(expect.any(Error));
-  });
-  
-  it("should handle clue location not found error", async () => {
-    const mockHunt = {
-      scavengerStops: [{
-        _id: 'validLocationId',
-        remove: jest.fn(),
-      }],
-      save: jest.fn(),
-    };
-  
-    scavengerModel.findById.mockResolvedValue(mockHunt);
-  
-    const req = mockRequest({ id: "validScavengerId", locationId: 'invalidLocationId' });
-    const res = mockResponse();
-  
-    await deleteClueLocation(req, res, nextFunction);
-  
-    expect(nextFunction).toHaveBeenCalledWith(expect.any(Error));
-  });
-  
-  it("should handle database errors or invalid object IDs", async () => {
-  scavengerModel.findById.mockRejectedValue({ kind: 'ObjectId' });
-  const req = mockRequest({}, { id: "problematicScavengerId", locationId: 'validLocationId' });
-  const res = mockResponse();
 
-  await expect(deleteClueLocation(req, res, nextFunction)).rejects.toThrow(`Invalid ID format: problematicScavengerId`);
+    const req = mockRequest({}, { id: 'invalidScavengerId' });
+    const res = mockResponse();
+    const next = jest.fn();
 
-  expect(nextFunction).not.toHaveBeenCalled();
+    await getClueLocations(req, res, next);
+
+    expect(next).toHaveBeenCalledWith(expect.any(Error));
+  });
 });
+
+describe('getClueLocation function', () => {
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
+
+  it('should successfully retrieve a single clue location', async () => {
+    const mockClueLocation = { name: 'Clue Location 1' };
+    const mockHunt = {
+      scavengerStops: { id: jest.fn().mockReturnValue(mockClueLocation) },
+    };
+    scavengerModel.findById.mockResolvedValue(mockHunt);
+
+    const req = mockRequest({}, { id: 'validScavengerId', locationId: 'validLocationId' });
+    const res = mockResponse();
+    const next = jest.fn();
+
+    await getClueLocation(req, res, next);
+
+    expect(res.status).toHaveBeenCalledWith(200);
+    expect(res.json).toHaveBeenCalledWith(expect.objectContaining({
+      status: 'success',
+      data: { clueLocation: mockClueLocation },
+    }));
+  });
+
+  it('should handle not found error when scavenger ID is invalid', async () => {
+    scavengerModel.findById.mockResolvedValue(null);
+
+    const req = mockRequest({}, { id: 'invalidScavengerId', locationId: 'validLocationId' });
+    const res = mockResponse();
+    const next = jest.fn();
+
+    await getClueLocation(req, res, next);
+
+    expect(next).toHaveBeenCalledWith(expect.any(Error));
+  });
+
+  it('should handle clue location not found error', async () => {
+    const mockHunt = { scavengerStops: { id: jest.fn().mockReturnValue(null) } };
+    scavengerModel.findById.mockResolvedValue(mockHunt);
+
+    const req = mockRequest({}, { id: 'validScavengerId', locationId: 'invalidLocationId' });
+    const res = mockResponse();
+    const next = jest.fn();
+
+    await getClueLocation(req, res, next);
+
+    expect(next).toHaveBeenCalledWith(expect.any(Error));
+  });
+});
+
