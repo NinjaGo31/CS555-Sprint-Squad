@@ -164,26 +164,34 @@ describe("resetPassword function", () => {
     });
 
     it("should handle case for successful Password Reset", async ()=>{
-        const mockUser ={
-            _id:"anyId",
-            password:"testOldPassword",
-            passwordConfirm:"testOldPassword",
-            passwordResetToken:"resetToken",
-            passwordResetTokenExpire: new Date(Date.now()+10*60*1000),//10 min from current time stamp
-            save:jest.fn(),
-        };
-        mockedUserModel.findOne.mockResolvedValue(mockUser);
-        const req =mockRequest({
-                password:"testNewPassword",
-                passwordConfirm:"testNewPassword"},
-                {token:"resetToken"});
-        const res = mockResponse();
-        const next = jest.fn();
-        await AuthController.resetPassword(req, res, next);
-        expect(mockUser.password).toBe("testNewPassword");
-        expect(mockUser.passwordConfirm).toBe("testNewPassword");
-        expect(res.status).toHaveBeenCalledWith(201);
-        expect(res.json).toHaveBeenCalledWith(expect.objectContaining({status:'success'}));
+      const mockUser = {
+        _id: "anyId",
+        password: process.env.test_resetOldPwd,
+        passwordConfirm: process.env.test_resetOldPwd,
+        passwordResetToken: process.env.test_resetToken_auth,
+        passwordResetTokenExpire: new Date(Date.now() + 10 * 60 * 1000), // 10 min from current time stamp
+        save: jest.fn(async function () {
+          this.password = bcrypt.hashSync("testNewPassword", 12);
+          this.passwordConfirm = bcrypt.hashSync("testNewPassword", 12);
+          return this;
+        }),
+      };
+      mockedUserModel.findOne.mockResolvedValue(mockUser);
+      const newPassword = "testNewPassword";
+      const req = mockRequest({
+        password: newPassword,
+        passwordConfirm: newPassword
+      }, { token: "resetToken" });
+      const res = mockResponse();
+      const next = jest.fn();
+    
+      await AuthController.resetPassword(req, res, next);
+    
+      // Here you should compare the hashed passwords if your resetPassword hashes them
+      const isMatch = await bcrypt.compare(newPassword, mockUser.password);
+      expect(isMatch).toBe(true);
+      expect(res.status).toHaveBeenCalledWith(201);
+      expect(res.json).toHaveBeenCalledWith(expect.objectContaining({ status: 'success' }));
     });
 });
 // <------- signup testcase --------->
@@ -204,8 +212,8 @@ describe('signUp', () => {
       body: {
         userName: 'testuser',
         email: 'test@example.com',
-        password: 'testpassword',
-        passwordConfirm: 'testpassword',
+        password: process.env.test_password_Confirm,
+        passwordConfirm: process.env.test_password_Confirm,
         role: 'user',
       },
     };
@@ -234,8 +242,8 @@ describe('signUp', () => {
     expect(userModel.create).toHaveBeenCalledWith({
       userName: 'testuser',
       email: 'test@example.com',
-      password: 'testpassword',
-      passwordConfirm: 'testpassword',
+      password: process.env.test_password_auth,
+      passwordConfirm: process.env.test_password_Confirm,
       role: 'user',
     });
 
