@@ -257,6 +257,23 @@ describe('getClueLocations function', () => {
 
     expect(next).toHaveBeenCalledWith(expect.any(Error));
   });
+ /* it('should handle invalid ID error when scavenger ID format is incorrect', async () => {
+    scavengerModel.findById.mockImplementation(() => {
+      throw { kind: 'ObjectId' };
+    });
+  
+    const req = mockRequest({}, { id: 'invalidIdFormat' });
+    const res = mockResponse();
+    const next = jest.fn();
+  
+    await getClueLocations(req, res, next);
+  
+    // Check if next is called with the correct error
+    expect(next).toHaveBeenCalledWith(expect.objectContaining({
+      message: `Invalid ID format: invalidIdFormat`,
+      statusCode: 400
+    }));
+  });   */
 });
 
 describe('getClueLocation function', () => {
@@ -308,5 +325,26 @@ describe('getClueLocation function', () => {
 
     expect(next).toHaveBeenCalledWith(expect.any(Error));
   });
+ /* it('should handle invalid ID error when scavenger ID format is incorrect', async () => {
+    // Simulate findById throwing an error for invalid ID
+    scavengerModel.findById.mockImplementation(() => {
+      const error = new Error('Invalid ObjectId');
+      error.kind = 'ObjectId'; // Mock the property to trigger handleInvalidId
+      throw error;
+    });
+  
+    const req = mockRequest({}, { id: 'invalidIdFormat', locationId: 'someLocationId' });
+    const res = mockResponse();
+    const next = jest.fn();
+  
+    await getClueLocation(req, res, next);
+  
+    // Expect the next function to be called with a specific error
+    expect(next).toHaveBeenCalledWith(expect.objectContaining({
+      message: `Invalid ID format: invalidIdFormat`,
+      statusCode: 400
+    }));
+  });  */
+  
 });
 
