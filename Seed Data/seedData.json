@@ -1,4 +1,4 @@
-{
+[{
     "topic": "Famous-Figures",
     "scavengerName": "Historical Luminaries",
     "description": "Embark on an intriguing quest to uncover the stories of Jersey City's most celebrated historical figures, guided by riddles and clues that lead you to sites associated with their remarkable lives and contributions. Each location holds a piece of the puzzle, revealing the impact these individuals had on shaping the city's heritage.",
@@ -44,10 +44,8 @@
         "coordinates": [-74.0431, 40.7178]
       }
     ]
-  }
-
-
-{
+  },
+    {
   "topic": "Ancient-Mysteries",
   "scavengerName": "Unraveling Jersey City's Hidden Past",
   "description": "Embark on an intriguing quest to uncover Jersey City's ancient mysteries, guided by riddles and clues that lead you to places associated with its rich history and forgotten civilizations. Prepare to delve into the city's past, unearthing the stories of the Lenape people, the original inhabitants of the region, and their enduring connection to the land.",
@@ -93,4 +91,6 @@
       "coordinates": [-74.0505, 40.7197]
     }
   ]
-}
+}]
+
+
