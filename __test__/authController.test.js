@@ -7,7 +7,6 @@ import bcrypt from 'bcryptjs';
 dotenv.config({ path: '.env.test' });
 
 // Load environment configuration for testing
-dotenv.config({ path: '.env.test' });
 
 // Set mock values for environment variables
 const mockJwtSecret = "myTestSecret";
