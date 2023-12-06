@@ -24,7 +24,6 @@ const ForgotPasswordForm = () => {
         setSuccessMessage(response.data.message);
       }
     } catch (error) {
-      //console.error(error);
       if (error.response) {
         // The request was made and the server responded with a status code
         setErrorMessage(error.response.data.message);

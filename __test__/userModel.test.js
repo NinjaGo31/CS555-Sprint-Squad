@@ -29,7 +29,11 @@ jest.mock('mongoose', () => {
         function MockModel(data) {
           Object.assign(this, data, schemaMock.methods);
           this.save = async function () {
-            const mockNext = () => {};
+            const mockNext = (err) => {
+                if(err){
+                    throw err;
+                }
+            };
       
             if (schemaMock.preSaveHook) {
               await schemaMock.preSaveHook.call(this, mockNext);

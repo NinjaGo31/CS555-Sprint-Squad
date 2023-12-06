@@ -35,10 +35,6 @@ describe("deleteUser function", () => {
     expect(res.status).toHaveBeenCalledWith(204);
     expect(res.json).toHaveBeenCalledWith({ status: 'success', data: null });
   });
-    // it("should successful password reset email sending", async () => {
-    // });
-    // it("should handle email sending failure", async () => {
-    // });
 });
 
 describe("updateUser function", () => {
