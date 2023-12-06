@@ -91,6 +91,54 @@
       "coordinates": [-74.0505, 40.7197]
     }
   ]
-}]
+},
+{
+  "topic": "Time-Travelers",
+  "scavengerName": "A Journey Through Jersey City's Historical Gems",
+  "description": "Embark on a captivating journey through time as you uncover the rich history of Jersey City, guided by riddles and clues that lead you to significant historical landmarks and monuments. Each location holds a piece of the puzzle, revealing the city's transformation from its early beginnings to its vibrant present. Prepare to delve into the city's diverse heritage, from its Native American roots to its role in the American Revolution and its emergence as a major industrial hub.",
+  "startLocation": {
+    "description": "Liberty State Park",
+    "type": "Point",
+    "coordinates": [-74.0370, 40.7074]
+  },
+  "scavengerStops": [
+    {
+      "scavengerName": "Liberty State Park",
+      "type": "Point",
+      "clue": "A beacon of freedom, a symbol so grand, She stands tall and proud, illuminating the land.",
+      "solution": "Liberty State Park, home to the iconic Statue of Liberty, a universal symbol of democracy and a reminder of the ideals of liberty and freedom.",
+      "coordinates": [-74.0370, 40.7074]
+    },
+    {
+      "scavengerName": "Ellis Island Immigration Museum",
+      "type": "Point",
+      "clue": "A gateway to dreams, where hopes took flight, A place of new beginnings, shining ever so bright.",
+      "solution": "Ellis Island Immigration Museum, the former processing center for millions of immigrants who arrived in the United States, representing the hopes and dreams of those seeking a better life.",
+      "coordinates": [-74.0394, 40.6993]
+    },
+    {
+      "scavengerName": "The Jersey City Civil War Monument",
+      "type": "Point",
+      "clue": "A tribute to valor, where heroes stood tall, Honoring their sacrifice, their courage, their all.",
+      "solution": "The Jersey City Civil War Monument, commemorating the contributions of Jersey City residents who fought in the American Civil War, a testament to their bravery and dedication to the cause of freedom.",
+      "coordinates": [-74.080939, 40.724640]
+    },
+    {
+      "scavengerName": "The Liberty Science Center",
+      "type": "Point",
+      "clue": "A realm of discovery, where curiosity thrives, Unveiling the wonders, where science comes alive.",
+      "solution": "The Liberty Science Center, a museum dedicated to inspiring curiosity and igniting passion for science and technology, representing Jersey City's commitment to innovation and education.",
+      "coordinates": [-74.0546, 40.7082]
+    },
+    {
+      "scavengerName": "The Harsimus Stem Embankment",
+      "type": "Point",
+      "clue": "A waterfront transformation, where beauty unfolds, A place of leisure and recreation, stories yet untold.",
+      "solution": "The Harsimus Stem Embankment, a waterfront promenade offering stunning views of the Manhattan skyline, symbolizing Jersey City's revitalization and its position as a vibrant urban hub.",
+      "coordinates": [-74.0441, 40.7252]
+    }
+  ]
+}
+]
 
 
