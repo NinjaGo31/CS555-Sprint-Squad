@@ -45,3 +45,52 @@
       }
     ]
   }
+
+
+{
+  "topic": "Ancient-Mysteries",
+  "scavengerName": "Unraveling Jersey City's Hidden Past",
+  "description": "Embark on an intriguing quest to uncover Jersey City's ancient mysteries, guided by riddles and clues that lead you to places associated with its rich history and forgotten civilizations. Prepare to delve into the city's past, unearthing the stories of the Lenape people, the original inhabitants of the region, and their enduring connection to the land.",
+  "startLocation": {
+    "description": "The Lenape Trail",
+    "type": "Point",
+    "coordinates": [-74.1643, 40.73544]
+  },
+  "scavengerStops": [
+    {
+      "scavengerName": "The Lenape Trail",
+      "type": "Point",
+      "clue": "Where footsteps once trod, a legacy endures, Follow the Lenape Trail, their stories obscure.",
+      "solution": "The Lenape Trail, a hiking and biking path that winds through wooded areas and along the Hudson River, was once a vital transportation route for the Lenape people, providing access to hunting grounds and trade networks.",
+      "coordinates": [-74.1643, 40.73544]
+    },
+    {
+      "scavengerName": "The Dey Mansion",
+      "type": "Point",
+      "clue": "A grand estate, a window to the past, Where history whispers, its secrets amassed.",
+      "solution": "The Dey Mansion, a 1748 Georgian-style mansion, served as the home of the Dey family, prominent landowners who played a significant role in Jersey City's early development. The mansion now houses the Hudson County Historical Society and is a testament to the city's rich heritage.",
+      "coordinates": [-74.14, 40.915556]
+    },
+    {
+      "scavengerName": "The Jersey City Hall Annex",
+      "type": "Point",
+      "clue": "Beneath the city's surface, hidden in plain sight, Ancient artifacts lie, casting a new light.",
+      "solution": "The Jersey City Hall Annex, a municipal building constructed in 1894, holds a remarkable secret. During its construction, archaeologists discovered a Lenape burial ground, revealing the presence of the Lenape people in this area long before the arrival of European settlers.",
+      "coordinates": [-74.077, 40.7106]
+    },
+    {
+      "scavengerName": "The Liberty State Park Archaeology Center",
+      "type": "Point",
+      "clue": "Where artifacts speak, their stories unfold, Unveiling the Lenape's tale, precious and old.",
+      "solution": "The Liberty State Park Archaeology Center, a research facility dedicated to preserving and studying archaeological artifacts, houses a collection of Lenape artifacts recovered from various sites in Jersey City. These artifacts provide valuable insights into the daily lives, technology, and cultural practices of the Lenape people.",
+      "coordinates": [-74.052315, 40.703693]
+    },
+    {
+      "scavengerName": "The Jersey City Museum",
+      "type": "Point",
+      "clue": "A treasure trove of history, where stories convene, Discover the Lenape's legacy, their presence serene.",
+      "solution": "The Jersey City Museum, a repository of the city's history and culture, houses a permanent exhibition dedicated to the Lenape people. This exhibition showcases artifacts, artwork, and multimedia presentations that bring the Lenape's story to life, highlighting their cultural heritage and contributions to the region.",
+      "coordinates": [-74.0505, 40.7197]
+    }
+  ]
+}
