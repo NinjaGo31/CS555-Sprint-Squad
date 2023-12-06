@@ -42,9 +42,13 @@ The Vite development server listens on port 5173 by default.
 
 
 For running the test cases in local repository:
+
 ** In the Database server **
+
 **Install Dependencies **
+
 command -> npm install --save-dev @babel/core @babel/preset-env babel-jest
+
 ** Command Run **
 command -> npm run test
 This will provide the testcase coverage statistics and provide the report of the test cases run
