@@ -1,0 +1,457 @@
+/* General styling for the body */
+body {
+  
+  height: 100vh;
+  
+  margin: 0;
+  
+  background: linear-gradient(#02111b, #438b8a);
+  
+  position: relative;
+  
+  padding: 0;
+  
+}
+
+/* Styling for the main title */
+.title {
+  
+  margin-top: 5rem;
+  
+  color: #fff;
+  
+  text-align: center;
+  
+  text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  
+  font-family: "Press Start 2P";
+  
+  font-size: 2rem;
+  
+  font-style: normal;
+  
+  font-weight: 400;
+  
+  line-height: normal;
+  
+}
+
+/* Styling for the subtitle */
+
+.subTitle {
+  
+  color: #fff;
+  
+  text-align: center;
+  
+  font-family: "Irish Grover";
+  
+  font-size: 0.9375rem;
+  
+  font-style: normal;
+  
+  font-weight: 400;
+  
+  line-height: normal;
+  
+}
+
+/* Container styling */
+
+.container {
+  
+  display: flex;
+  
+  flex-direction: column;
+  
+  height: 100vh;
+  
+}
+
+/* Login/signup section styling */
+
+.login_signup {
+  
+  width: auto;
+  
+  margin-left: auto;
+  
+  margin-right: auto;
+  
+  margin-top: 2rem;
+  
+  margin-bottom: 5rem;
+  
+}
+
+/* Modal styling */
+
+.modal {
+  position: absolute;
+  
+  background: #fff;
+  
+  border: 2px solid black;
+  
+  top: 50%;
+  
+  left: 50%;
+  
+  transform: translate(-50%, -50%);
+  
+  padding: 2rem;
+  
+  border-radius: 1rem;
+  
+  display: flex;
+  
+  flex-direction: column;
+  
+}
+
+/* Image in the landing section */
+
+.landingImg {
+  
+  height: 100%;
+  
+  width: 100%;
+  
+  object-fit: cover;
+  
+}
+
+/* Styling for the map display */
+
+.display-map {
+  
+  width: 100%;
+  
+  height: 96vh;
+  
+}
+
+/* Navigation styling within the map container */
+
+.mapContainer nav {
+  
+  height: 4vh;
+  
+  background: black;
+  
+  color: white;
+  
+  display: flex;
+  
+  justify-content: space-between;
+  
+  align-items: center;
+  
+}
+
+/* Styling for the testing section */
+
+.testing {
+  
+  width: 100px;
+  
+}
+
+
+.testing img {
+  
+  height: 100px;
+  
+}
+
+/* Styling for login inputs */
+
+.login-input {
+  
+  margin-top: 0.5rem;
+  
+  margin-bottom: 0.7rem;
+  
+}
+
+/* Styling for various form fields */
+
+#userName,
+
+#email,
+
+#password,
+
+#passwordConfirm {
+  
+  font-family: "Press Start 2P";
+  
+}
+
+/* Styling for form groups */
+
+.form-group {
+  
+  display: block;
+  
+  margin-bottom: 10px;
+  
+  margin-top: 10px;
+
+  
+}
+
+/* Styling for forgot password link */
+
+.forgot-password-link {
+  
+  display: block;
+  
+  margin-top: 10px;
+  
+  text-align: center;
+  
+  color: #007bff;
+  
+  text-decoration: none;
+  
+}
+
+.forgot-password-link:hover {
+  
+  text-decoration: underline;
+  
+}
+
+/* Styles for the ForgotPasswordForm */
+
+.form-container {
+  
+  display: flex;
+  
+  justify-content: center;
+  
+  align-items: center;
+  
+  height: 100vh;
+  
+}
+
+.form-box {
+  
+  display: flex;
+  
+  flex-direction: column;
+  
+  padding: 2rem;
+  
+  border-radius: 5px;
+
+  
+  background-color: #ffffff;
+  
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  
+  width: 100%;
+  
+  max-width: 400px;
+  
+  margin: 0 auto;
+  
+}
+
+.form-input {
+  
+  margin: 0.5rem 0;
+  
+  padding: 1rem;
+  
+  font-size: 1rem;
+  
+  border: 1px solid #ddd;
+  
+  border-radius: 5px;
+  
+}
+
+.form-button {
+  
+  padding: 1rem;
+  
+  background-color: #4388ba;
+  
+  color: white;
+  
+  border: none;
+  
+  border-radius: 5px;
+  
+  cursor: pointer;
+  
+  font-size: 1rem;
+  
+  margin-top: 0.5rem;
+  
+}
+
+.form-input,
+.form-button {
+  
+  font-family: "Press Start 2P";
+  
+}
+
+.password-input-container {
+  
+  position: relative;
+  
+}
+
+.toggle-password-visibility {
+  
+  position: absolute;
+  
+  right: 10px;
+  
+  top: 50%;
+  
+  transform: translateY(-50%);
+  
+  border: none;
+  
+  background: transparent;
+  
+  cursor: pointer;
+  
+}
+
+.form-input {
+  
+  padding-right: 40px;
+  
+}
+
+.standalone-form-container {
+  
+  position: fixed;
+  
+  top: 50%;
+  
+  left: 50%;
+  
+  transform: translate(-50%, -50%);
+  
+  width: 100%;
+  
+  max-width: 400px;
+  
+  padding: 2rem;
+  
+  border-radius: 1rem;
+  
+  background: #fff;
+  
+  border: 2px solid black;
+  
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  
+  z-index: 10;
+  
+}
+
+.success-message {
+  
+  color: rgb(236, 242, 236);
+  
+}
+
+.error-message {
+  
+  color: red;
+  
+  margin: 5px 0;
+  
+}
+
+/* Styling for the forgot password link */
+
+.forgot-password-link {
+  
+  background: none;
+  
+  border: none;
+  
+  color: #069;
+  
+  padding: 0;
+  
+  text-decoration: underline;
+  
+  cursor: pointer;
+  
+  font-family: inherit;
+  
+  font-size: 0.9em;
+  
+  margin-top: 10px;
+  
+}
+
+/* Hover state for the forgot password link */
+
+.forgot-password-link:hover {
+  
+  color: #0056b3;
+  
+  text-decoration: none;
+  
+}
+
+/* Focus and active states for accessibility */
+
+.forgot-password-link:focus,
+.forgot-password-link:active {
+  
+  outline: none;
+  
+  color: #032b52;
+
+
+}
+
+/* Styling for the close button in the modal */
+
+.model-close {
+  margin-right: -20px;
+  
+  margin-top: -20px;
+  
+  margin-bottom: 10px;
+  
+  align-self: flex-end;
+  
+}
+
+/* Styling for the checkbox alignment */
+
+.checkBox-right-align {
+  
+  vertical-align: middle;
+  
+  float: right;
+  
+  margin-bottom: 10px;
+  
+}
+
+/* Styling for the checkbox label */
+
+.checkBox-label {
+  
+  display: block;
+  
+  overflow: hidden;
+  
+  width: 120px;
+  
+}
