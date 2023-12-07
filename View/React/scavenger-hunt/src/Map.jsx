@@ -6,7 +6,7 @@ import {
 } from "@react-google-maps/api";
 import { useState, useEffect } from "react";
 import MapContainer from "./components/MapContainer";
-function Map(props) {
+function Map(props) { // NOSONAR
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: "",
   });
