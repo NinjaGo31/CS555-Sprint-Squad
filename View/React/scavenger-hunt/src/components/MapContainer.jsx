@@ -20,11 +20,16 @@ function MapContainer(props) {
         {isLoggedIn && <RandomAvatar name={props.charecterCreation.userName} size={25} />}
         <p>{props.charecterCreation.userName}</p>
         <p
-          onClick={() => {
-            setIsLoggedIn(false);//NOSONAR
+        tabIndex="0" // Make it focusable
+        onClick={() => setIsLoggedIn(false)}
+        onKeyPress={(event) => {
+          if (event.key === 'Enter') {
+             setIsLoggedIn(false);
+            }
           }}
-        >
-          {isLoggedIn ? "logout" : "Login"}
+          style={{ cursor: 'pointer' }}
+          >
+            {isLoggedIn ? "logout" : "Login"}
         </p>
       </nav>
       {props.children}
