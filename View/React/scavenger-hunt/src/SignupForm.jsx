@@ -34,12 +34,12 @@ const SignupForm = ({ onSignup, onLogin }) => {
 
     if (formData.password.length < 8) {
       // noinspection HardcodedPasswordString
-      errors.password = "Password must be at least 8 characters";
+      errors.password = "Password must be at least 8 characters";// NOSONAR
     }
 
     if (formData.password !== formData.passwordConfirm) {
       // noinspection HardcodedPasswordString
-      errors.passwordConfirm = "Passwords do not match";
+      errors.passwordConfirm = "Passwords do not match";// NOSONAR
     }
 
     setErrors(errors);
