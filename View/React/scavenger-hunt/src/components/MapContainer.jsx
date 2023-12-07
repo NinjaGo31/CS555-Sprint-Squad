@@ -21,9 +21,8 @@ function MapContainer(props) {
         <p>{props.charecterCreation.userName}</p>
         <p
           onClick={() => {
-            setIsLoggedIn(false);
+            setIsLoggedIn(false);//NOSONAR
           }}
-          //NOSONAR
         >
           {isLoggedIn ? "logout" : "Login"}
         </p>
