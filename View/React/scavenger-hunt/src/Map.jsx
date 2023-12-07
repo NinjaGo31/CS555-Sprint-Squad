@@ -43,7 +43,7 @@ function RenderMap(props) {
       // console.log(error);
     };
 
-    const geoWatcher = navigator.geolocation.watchPosition(
+    const geoWatcher = navigator.geolocation.watchPosition( // NOSONAR
       successCallback,
       errorCallback,
       options

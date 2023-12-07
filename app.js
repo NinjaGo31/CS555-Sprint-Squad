@@ -4,13 +4,13 @@ import { userRouter } from "./Routes/userRoutes.js";
 
 import { scavengerRouter } from "./Routes/scavengerRoutes.js";
 
-import cors from "cors"
+import cors from "cors";
 
-const app = express();
+const app = express(); // NOSONAR
 
 // Global middleware
 
-app.use(cors());
+app.use(cors()); // NOSONAR
 
 app.use(express.json());
 

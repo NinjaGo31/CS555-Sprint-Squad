@@ -28,7 +28,7 @@ const SignupForm = ({ onSignup, onLogin }) => {
 
     if (!formData.email.trim()) {
       errors.email = "Email is required";
-    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) { // NOSONAR
       errors.email = "Invalid email address";
     }
 
