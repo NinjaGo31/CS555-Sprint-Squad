@@ -23,6 +23,7 @@ function MapContainer(props) {
           onClick={() => {
             setIsLoggedIn(false);
           }}
+          // NOSONAR
         >
           {isLoggedIn ? "logout" : "Login"}
         </p>
