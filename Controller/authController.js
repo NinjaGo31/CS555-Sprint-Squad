@@ -36,7 +36,6 @@ async function logIn(req, res, next) {
   try {
     const { userName, password: passwordProvided } = req.body;
     if (userName === undefined && passwordProvided === undefined) {
-      // todo throw error if no password or username is given
       const err = new Error(`Error: no password or username is given`);
       err.statusCode = 401;
       return next(err);
