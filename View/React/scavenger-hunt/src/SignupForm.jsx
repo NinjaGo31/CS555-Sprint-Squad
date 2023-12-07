@@ -33,10 +33,12 @@ const SignupForm = ({ onSignup, onLogin }) => {
     }
 
     if (formData.password.length < 8) {
+      // noinspection HardcodedPasswordString
       errors.password = "Password must be at least 8 characters";
     }
 
     if (formData.password !== formData.passwordConfirm) {
+      // noinspection HardcodedPasswordString
       errors.passwordConfirm = "Passwords do not match";
     }
 
